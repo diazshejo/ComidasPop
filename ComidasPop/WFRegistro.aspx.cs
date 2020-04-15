@@ -60,7 +60,6 @@ namespace ComidasPop
                 }
                 if (Mensaje.Equals("ERROR"))
                 {
-                    //ScriptManager.RegisterStartupScript(this, GetType(), "displayalertmessage", "DialogoError('Ocurrio un error en la base de datos al crear la cuenta.')", true);
                     ClientScript.RegisterStartupScript(this.GetType(), "mensaje", "<script>swal('Error', 'Ocurrió un error al tratar de crear la cuenta', 'error')</script>");
                 }
             }
