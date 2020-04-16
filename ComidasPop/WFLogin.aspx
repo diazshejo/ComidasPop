@@ -85,7 +85,14 @@
         .txt {
             width: 100%;
             font-family: 'Century Gothic';
-            color: aqua;
+            /*color: aqua;*/
+            font-size: 16px;
+        }
+
+        #lblMensaje{
+            width: 100%;
+            font-family: 'Century Gothic';
+            /*color: aqua;*/
             font-size: 16px;
         }
 
@@ -101,7 +108,7 @@
             text-align: center;
         }
 
-        #button {
+        #btnLogin {
             width: 250px;
             height: 50px;
         }
@@ -170,13 +177,11 @@
                             <td>
                                 <dx:ASPxLabel ID="ASPxLabel2" runat="server" Text="Correo electrónico" CssClass="label"></dx:ASPxLabel>
                                 <br />
-                                <br />
                             </td>
                         </tr>
                         <tr>
                             <td>
-                                <dx:ASPxTextBox ID="ASPxTextBox2" CssClass="txt" runat="server" Width="100%" Border-BorderStyle="None" BorderBottom-BorderStyle="Solid" BorderBottom-BorderColor="#999999" ForeColor="#999999"></dx:ASPxTextBox>
-                                <br />
+                                <dx:ASPxTextBox ID="txtEmail" CssClass="txt" runat="server" Width="100%" Border-BorderStyle="None" BorderBottom-BorderStyle="Solid" BorderBottom-BorderColor="#999999" ForeColor="#999999" Height="30"></dx:ASPxTextBox>
                                 <br />
                             </td>
                         </tr>
@@ -184,16 +189,21 @@
                             <td>
                                 <dx:ASPxLabel ID="ASPxLabel1" runat="server" Text="Contraseña" CssClass="label"></dx:ASPxLabel>
                                 <br />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <dx:ASPxTextBox ID="txtPassword" CssClass="txt" runat="server" Width="100%" Border-BorderStyle="None" BorderBottom-BorderStyle="Solid" BorderBottom-BorderColor="#999999" ForeColor="#999999" Password="True" Height="30">
+                                    <Border BorderStyle="None"></Border>
+
+                                    <BorderBottom BorderColor="#999999" BorderStyle="Solid"></BorderBottom>
+                                </dx:ASPxTextBox>
                                 <br />
                             </td>
                         </tr>
                         <tr>
                             <td>
-                                <dx:ASPxTextBox ID="ASPxTextBox1" CssClass="txt" runat="server" Width="100%" Border-BorderStyle="None" BorderBottom-BorderStyle="Solid" BorderBottom-BorderColor="#999999" ForeColor="#999999" Password="True">
-                                    <Border BorderStyle="None"></Border>
-
-                                    <BorderBottom BorderColor="#999999" BorderStyle="Solid"></BorderBottom>
-                                </dx:ASPxTextBox>
+                                <dx:ASPxLabel ID="lblMensaje" runat="server" Text=""></dx:ASPxLabel>
                                 <br />
                                 <br />
                                 <br />
@@ -201,7 +211,7 @@
                         </tr>
                         <tr>
                             <td id="tdBoton">
-                                <dx:ASPxButton ID="button" runat="server" Text="Iniciar sesión" Theme="MetropolisBlue" Font-Bold="True" Font-Size="Large"></dx:ASPxButton>
+                                <dx:ASPxButton ID="btnLogin" runat="server" Text="Iniciar sesión" Theme="MetropolisBlue" Font-Bold="True" Font-Size="Large" OnClick="btnLogin_Click"></dx:ASPxButton>
                             </td>
                         </tr>
                     </table>

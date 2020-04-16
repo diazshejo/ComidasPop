@@ -51,13 +51,13 @@ namespace ComidasPop
         protected global::DevExpress.Web.ASPxLabel ASPxLabel2;
 
         /// <summary>
-        /// Control ASPxTextBox2.
+        /// Control txtEmail.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::DevExpress.Web.ASPxTextBox ASPxTextBox2;
+        protected global::DevExpress.Web.ASPxTextBox txtEmail;
 
         /// <summary>
         /// Control ASPxLabel1.
@@ -69,21 +69,30 @@ namespace ComidasPop
         protected global::DevExpress.Web.ASPxLabel ASPxLabel1;
 
         /// <summary>
-        /// Control ASPxTextBox1.
+        /// Control txtPassword.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::DevExpress.Web.ASPxTextBox ASPxTextBox1;
+        protected global::DevExpress.Web.ASPxTextBox txtPassword;
 
         /// <summary>
-        /// Control button.
+        /// Control lblMensaje.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::DevExpress.Web.ASPxButton button;
+        protected global::DevExpress.Web.ASPxLabel lblMensaje;
+
+        /// <summary>
+        /// Control btnLogin.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxButton btnLogin;
     }
 }

@@ -167,12 +167,11 @@
                         <tr>
                             <td>
                                 <dx:ASPxLabel ID="ASPxLabel2" runat="server" Text="Nombres" CssClass="label"></dx:ASPxLabel>
-                                <br />
                             </td>
                         </tr>
                         <tr>
                             <td>
-                                <dx:ASPxTextBox ID="txtNombres" CssClass="txt" runat="server" Width="100%" Border-BorderStyle="None" BorderBottom-BorderStyle="Solid" BorderBottom-BorderColor="#999999" ForeColor="#999999"></dx:ASPxTextBox>
+                                <dx:ASPxTextBox ID="txtNombres" CssClass="txt" runat="server" Width="100%" Border-BorderStyle="None" BorderBottom-BorderStyle="Solid" BorderBottom-BorderColor="#999999" ForeColor="#999999" Height="30" Theme="MetropolisBlue"></dx:ASPxTextBox>
                                 <br />
                             </td>
                         </tr>
@@ -184,7 +183,7 @@
                         </tr>
                         <tr>
                             <td>
-                                <dx:ASPxTextBox ID="txtApellidos" CssClass="txt" runat="server" Width="100%" Border-BorderStyle="None" BorderBottom-BorderStyle="Solid" BorderBottom-BorderColor="#999999" ForeColor="#999999" Password="False">
+                                <dx:ASPxTextBox ID="txtApellidos" CssClass="txt" runat="server" Width="100%" Border-BorderStyle="None" BorderBottom-BorderStyle="Solid" BorderBottom-BorderColor="#999999" ForeColor="#999999" Password="False" Height="30">
                                     <Border BorderStyle="None"></Border>
 
                                     <BorderBottom BorderColor="#999999" BorderStyle="Solid"></BorderBottom>
@@ -200,7 +199,7 @@
                         </tr>
                         <tr>
                             <td>
-                                <dx:ASPxTextBox ID="txtEmail" CssClass="txt" runat="server" Width="100%" Border-BorderStyle="None" BorderBottom-BorderStyle="Solid" BorderBottom-BorderColor="#999999" ForeColor="#999999" Password="False">
+                                <dx:ASPxTextBox ID="txtEmail" CssClass="txt" runat="server" Width="100%" Border-BorderStyle="None" BorderBottom-BorderStyle="Solid" BorderBottom-BorderColor="#999999" ForeColor="#999999" Password="False" Height="30">
                                     <Border BorderStyle="None"></Border>
 
                                     <BorderBottom BorderColor="#999999" BorderStyle="Solid"></BorderBottom>
@@ -216,7 +215,7 @@
                         </tr>
                         <tr>
                             <td>
-                                <dx:ASPxTextBox ID="txtPassword" CssClass="txt" runat="server" Width="100%" Border-BorderStyle="None" BorderBottom-BorderStyle="Solid" BorderBottom-BorderColor="#999999" ForeColor="#999999" Password="True">
+                                <dx:ASPxTextBox ID="txtPassword" CssClass="txt" runat="server" Width="100%" Border-BorderStyle="None" BorderBottom-BorderStyle="Solid" BorderBottom-BorderColor="#999999" ForeColor="#999999" Password="True" Height="30">
                                     <Border BorderStyle="None"></Border>
 
                                     <BorderBottom BorderColor="#999999" BorderStyle="Solid"></BorderBottom>
