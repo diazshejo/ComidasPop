@@ -13,5 +13,10 @@ namespace ComidasPop
         {
 
         }
+
+        protected void ASPxNavBar1_ItemClick(object source, DevExpress.Web.NavBarItemEventArgs e)
+        {
+
+        }
     }
 }

@@ -43,13 +43,16 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.Data.v19.2, Version=19.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Data.v19.2, Version=19.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\Windows\Microsoft.NET\assembly\GAC_MSIL\DevExpress.Data.v19.2\v4.0_19.2.7.0__b88d1754d700e49a\DevExpress.Data.v19.2.dll</HintPath>
+    </Reference>
     <Reference Include="DevExpress.Printing.v19.2.Core, Version=19.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.RichEdit.v19.2.Core, Version=19.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.RichEdit.v19.2.Export, Version=19.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.Web.ASPxThemes.v19.2, Version=19.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.Web.Resources.v19.2, Version=19.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
-    <Reference Include="DevExpress.Web.v19.2, Version=19.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Web.v19.2, Version=19.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
@@ -124,6 +127,7 @@
     <Content Include="alert\themes\light\x2\warning.png" />
     <Content Include="css\sb-admin.css" />
     <Content Include="css\sb-admin.min.css" />
+    <Content Include="css\style.css" />
     <Content Include="css\sweetalert.css" />
     <Content Include="Global.asax" />
     <Content Include="Imagenes\logo.jpeg" />
@@ -261,6 +265,9 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\licenses.licx" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
