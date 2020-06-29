@@ -7,12 +7,7 @@
 <html>
 <head runat="server">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title></title>
-    
-
-
-
-
+    <title>Starving</title>
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
     <style>
@@ -21,12 +16,11 @@
             margin: 0;
             width: 100%;
             height: 100%;
-            /*background-color: antiquewhite;*/
+            overflow:hidden;
         }
 
         form {
             position: relative;
-            /*margin:0;*/
             width: 100%;
             height: 100%;
         }
@@ -44,7 +38,6 @@
             float: left;
             width: 100%;
             height: 90.6%;
-            /*background-color: antiquewhite;*/
         }
 
         #divMenu {
@@ -52,7 +45,6 @@
             float: left;
             width: 100%;
             height: 98%;
-            /*background-color: antiquewhite;*/
         }
 
         #divContenido {
@@ -60,7 +52,6 @@
             float: right;
             width: 87%;
             height: 90%;
-            /*background-color:brown;*/
         }
 
         #divPie {
@@ -72,40 +63,22 @@
         }
     </style>
 
-    <link href="css/style.css" rel="stylesheet" />
+    <link href="css/bootstrap-combined.min.css" rel="stylesheet" />
+    <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('label.tree-toggler').click(function () {
+                $(this).parent().children('ul.tree').toggle(300);
+            });
+        });
+    </script>
+
+    <%--<link href="css/style.css" rel="stylesheet" />--%>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
-
-    <%--<script>
-        $(function () {
-            var Accordion = function (el, multiple) {
-                this.el = el || {};
-                // more then one submenu open?
-                this.multiple = multiple || false;
-
-                var dropdownlink = this.el.find('.dropdownlink');
-                dropdownlink.on('click',
-                    { el: this.el, multiple: this.multiple },
-                    this.dropdown);
-            };
-
-            Accordion.prototype.dropdown = function (e) {
-                var $el = e.data.el,
-                    $this = $(this),
-                    //this is the ul.submenuItems
-                    $next = $this.next();
-
-                $next.slideToggle();
-                $this.parent().toggleClass('open');
-
-                if (!e.data.multiple) {
-                    //show only one menu at the same time
-                    $el.find('.submenuItems').not($next).slideUp().parent().removeClass('open');
-                }
-            }
-
-            var accordion = new Accordion($('.accordion-menu'), false);
-        })
-    </script>--%>
+    <link href="css/sweetalert.css" rel="stylesheet" />
+    <script src="js/sweetalert.min.js" type="text/javascript"></script>
+    <link rel="SHORTCUT ICON" href="Imagenes/logo.png" />
 </head>
 <body>
     <form id="form1" runat="server">
@@ -116,55 +89,51 @@
             <dx:ASPxSplitter ID="splitter" runat="server" Width="99.9%" Height="100%" Orientation="Horizontal" Theme="Material" ShowCollapseBackwardButton="True" AllowResize="False" PaneMinSize="300px">
                 <Panes>
                     <dx:SplitterPane ShowCollapseBackwardButton="True" ScrollBars="Auto" AutoHeight="True" AllowResize="True" AutoWidth="True" Separator-Visible="True" PaneStyle-HorizontalAlign="Left" Collapsed="False" MinSize="200px" MaxSize="200px">
-                        <%--<Separator Visible="True">
-
-                        </Separator>--%>
-
                         <Separator Visible="True"></Separator>
-
                         <PaneStyle HorizontalAlign="Left" Border-BorderStyle="Solid" Border-BorderColor="#CCCCCC" Border-BorderWidth="1px"></PaneStyle>
                         <ContentCollection>
                             <dx:SplitterContentControl BorderStyle="None">
-                                <%--<div class="middle">--%>
-                                    <%--<div class="middle">--%>
-                                        <div class="menu">
-                                            <li class="item" id='profile'>
-                                                <a href="#profile" class="btn"><i class="far fa-user"></i>Establecimientos</a>
-                                                <div class="smenu">
-                                                    <a href="#">Comedores</a>
-                                                </div>
-                                            </li>
-
-                                            <li class="item" id="messages">
-                                                <a href="#messages" class="btn"><i class="far fa-envelope"></i>Productos</a>
-                                                <div class="smenu">
-                                                    <a href="#">Menús</a>
-                                                    <a href="#">Complementos</a>
-                                                    <a href="#">Calificaciones</a>
-                                                </div>
-                                            </li>
-
-                                            <li class="item" id="settings">
-                                                <a href="#settings" class="btn"><i class="fas fa-cog"></i>Membresía</a>
-                                                <div class="smenu">
-                                                    <a href="#">Mis suscripciones</a>
-                                                    <a href="#">Mi cuenta</a>
-                                                    <a href="#">Metodos de pago</a>
-                                                    <a href="#">Historico de membersía</a>
-                                                </div>
-                                            </li>
-
-                                            <li class="item">
-                                                <a class="btn" href="#"><i class="fas fa-sign-out-alt"></i>Logout</a>
-                                            </li>
+                                <div class="container2">
+                                    <div class="rows">
+                                        <div class="wellsa" style="width: 100%; padding: 8px 0;">
+                                            <div style="overflow-y: auto; overflow-x: hidden; height: 10%;">
+                                                <ul class="nav nav-list">
+                                                    <li>
+                                                        <label class="tree-toggler nav-header"><i class="fa fa-home"></i>   Establecimientos comerciales</label>
+                                                        <ul class="nav nav-list tree">
+                                                            <li><a href="#"><i class="fa fa-check-circle"></i>   Comedores</a></li>
+                                                        </ul>
+                                                    </li>
+                                                    <li class="divider"></li>
+                                                    <li>
+                                                        <label class="tree-toggler nav-header"><i class="fa fa-shopping-cart"></i>  Productos</label>
+                                                        <ul class="nav nav-list tree">
+                                                            <li><a href="#"><i class="fa fa-check-circle"></i>   Menús</a></li>
+                                                            <li><a href="#"><i class="fa fa-check-circle"></i>   Complementos</a></li>
+                                                            <li><a href="#"><i class="fa fa-check-circle"></i>   Calificaciones</a></li>
+                                                        </ul>
+                                                    </li>
+                                                    <li class="divider"></li>
+                                                    <li>
+                                                        <label class="tree-toggler nav-header"><i class="fa fa-id-card"></i>    Membresías</label>
+                                                        <ul class="nav nav-list tree">
+                                                            <li><a href="#"><i class="fa fa-check-circle"></i>   Mis suscripciones</a></li>
+                                                            <li><a href="#"><i class="fa fa-check-circle"></i>   Mi cuenta</a></li>
+                                                            <li><a href="#"><i class="fa fa-check-circle"></i>   Metodos de pago</a></li>
+                                                            <li><a href="#"><i class="fa fa-check-circle"></i>   Historico de membersía</a></li>
+                                                        </ul>
+                                                    </li>
+                                                    <li class="divider"></li>
+                                                    <li>
+                                                        <label class="tree-toggler nav-header"><i class="fa fa-user-circle"></i>    Salir</label>
+                                                        <ul class="nav nav-list tree">
+                                                            <li><a href="/WFLogin.aspx"><i class="fa fa-check-circle"></i>   Cerrar sesión</a></li>
+                                                        </ul>
+                                                    </li>
+                                            </div>
                                         </div>
-                                    <%--</div>--%>
-
-
-
-
-
-                                <%--</div>--%>
+                                    </div>
+                                </div>
                             </dx:SplitterContentControl>
                         </ContentCollection>
                     </dx:SplitterPane>

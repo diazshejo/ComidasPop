@@ -46,9 +46,9 @@
 
          #divRegistro {
             width: 20%;
-            height: 55%;
+            height: 100%;
             font-family:'Century Gothic';
-            /*background-color:antiquewhite;*/
+/*            background-color:antiquewhite;*/
             /*border:solid;*/
             /*border-color:aqua;*/
         }
@@ -56,14 +56,14 @@
         #div0 {
             background-image: url("Imagenes/logo.png");
             background-repeat: no-repeat;
-            background-position:center;
+            background-position:bottom;
             background-size: 50%;
             width: 100%;
             height:30%;
             display: flex;
             justify-content: center;
             align-items: center;
-
+/*            background-color:antiquewhite;*/
         }
         #div1{
             text-align: center;
@@ -97,54 +97,7 @@
             height: 50px;
         }
     </style>
-    <!-- JQUERY -->
-    <%--<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/jquery-ui.min.js"></script>--%>
-    <!-- ALERT -->
-    <%--<link href="alert/css/alert.css" rel="stylesheet" />
-    <link href="alert/themes/dark/theme.css" rel="stylesheet" />
-    <script src="alert/js/alert.js"></script>
-    <script type="text/javascript">
-         function DialogoWarning(mensaje) {
-             $.alert.open('warning', mensaje);
-             return false;
-         }
-    </script>
 
-    <script type="text/javascript">
-        function DialogoError(mensaje) {
-            $.alert.open('error', mensaje);
-            return false;
-        }
-    </script>
-
-    <script type="text/javascript">
-        function DialogoInfo(mensaje) {
-            $.alert.open('')
-            if (button == 'ok')
-                window.location.href = "../WFLogin.aspx";
-            return false;
-        }
-    </script>
-
-    <script type="text/javascript">
-        function DialogoOption(mensaje) {
-            $.alert.open('confirm', mensaje, function (button) {
-                if (button == 'yes')
-                    window.location.href = "../WFLogin.aspx";
-                //window.location.href = "../POSWeb/Frm_ImpresionRecibo.aspx";
-                    //$.alert.open('You pressed the "yes" button.');
-                else if (button == 'no')
-                    //$.alert.open('You pressed the "no" button.');
-                    return false;
-            });
-        }
-    </script>--%>
-
-
-    <%--<script src="sweetalert2.all.min.js"></script>--%>
-    <!-- Optional: include a polyfill for ES6 Promises for IE11 -->
-    <%--<script src="https://cdn.jsdelivr.net/npm/promise-polyfill"></script>--%>
     <link href="css/sweetalert.css" rel="stylesheet" />
     <script src="js/sweetalert.min.js" type="text/javascript"></script>
     <link rel="SHORTCUT ICON" href="Imagenes/logo.png"/>
@@ -158,9 +111,7 @@
                 <div id="div1">
                     <asp:Label ID="Label1" runat="server" Text="Abrir una cuenta"></asp:Label><br />
                     <asp:Label ID="Label2" runat="server" Text="Cree una cuenta y obtenga una susbcripción de 30 días grátis para su negocio. "></asp:Label>
-                    
                 </div>
-                <br />
                 <br />
                 <div id="div2">
                     <table style="width: 100%;">
@@ -220,7 +171,6 @@
 
                                     <BorderBottom BorderColor="#999999" BorderStyle="Solid"></BorderBottom>
                                 </dx:ASPxTextBox>
-                                <br />
                                 <br />
                                 <br />
                             </td>
