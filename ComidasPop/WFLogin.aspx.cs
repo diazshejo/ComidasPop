@@ -54,7 +54,7 @@ namespace ComidasPop
 
                     Session["ses_usuario"] = usuario;       //creo una variable de sesion
 
-                    //Response.Redirect("WFPrincipal.aspx");
+                    Response.Redirect("WFPrincipal.aspx");
                 }
                 if(Mensaje.Equals("INVALIDO"))
                 {

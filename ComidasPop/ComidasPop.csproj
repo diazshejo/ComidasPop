@@ -139,6 +139,7 @@
     <Content Include="Global.asax" />
     <Content Include="Imagenes\logo.jpeg" />
     <Content Include="Imagenes\logo.png" />
+    <Content Include="Imagenes\placeholder.png" />
     <Content Include="js\sb-admin-charts.js" />
     <Content Include="js\sb-admin-charts.min.js" />
     <Content Include="js\sb-admin-datatables.js" />
@@ -174,6 +175,7 @@
     <Content Include="vendor\jquery\jquery.slim.js" />
     <Content Include="vendor\jquery\jquery.slim.min.js" />
     <Content Include="Web.config" />
+    <Content Include="WFAgregarComercio.aspx" />
     <Content Include="WFLogin.aspx" />
     <Content Include="WFPrincipal.aspx" />
     <Content Include="WFRegistro.aspx" />
@@ -192,6 +194,13 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="App_Code\Usuario.cs" />
+    <Compile Include="WFAgregarComercio.aspx.cs">
+      <DependentUpon>WFAgregarComercio.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WFAgregarComercio.aspx.designer.cs">
+      <DependentUpon>WFAgregarComercio.aspx</DependentUpon>
+    </Compile>
     <Compile Include="WFLogin.aspx.cs">
       <DependentUpon>WFLogin.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
