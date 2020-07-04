@@ -1,17 +1,12 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MPPlantilla.Master" AutoEventWireup="true" CodeBehind="WFAgregarComercio.aspx.cs" Inherits="ComidasPop.WFAgregarComercio" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-    <%--Script para validar los campos del formulario--%>
-    <script>
-        function validar_campo() {
-
-        }
-    </script>
     <%--CSS que se le aplica al formulario--%>
     <style>
         #divAgregarComercio {
             width: 100%;
             height: 100%;
+            /*            background-color:blue;*/
         }
 
         #divTitulo {
@@ -22,7 +17,7 @@
             text-align: center;
             font-size: x-large;
             color: #0094ff;
-            padding-bottom: 5%;
+            /*            padding-bottom: 5%;*/
         }
 
         #divI {
@@ -30,6 +25,7 @@
             float: left;
             width: 50%;
             height: 95%;
+            /*            background-color:#ffd800;*/
         }
 
         #divD {
@@ -37,6 +33,7 @@
             float: right;
             width: 50%;
             height: 95%;
+            /*            background-color:#ff0000;*/
         }
 
         #divI1 {
@@ -44,6 +41,7 @@
             float: left;
             width: 50%;
             height: 50%;
+            /*            background-color:#808080;*/
         }
 
         #divD1 {
@@ -51,6 +49,7 @@
             float: right;
             width: 50%;
             height: 50%;
+            /*            background-color:bisque;*/
         }
 
         #divB1 {
@@ -58,6 +57,7 @@
             float: left;
             width: 100%;
             height: 50%;
+            /*            background-color:aqua;*/
         }
 
         img {
@@ -100,13 +100,36 @@
             position: relative;
             width: 5%;
         }
+
         .auto-style2 {
             width: 153px;
+        }
+        /*        Stylo que se usa para el mapa*/
+        .pac-container {
+            z-index: 99999;
+        }
+
+        #ModalMapPreview {
+            position: relative;
+            width: 100%;
+            height: 100%;
         }
     </style>
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+
+
+
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap-theme.min.css" />
+    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script src="https://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+
+    <script type="text/javascript" src='https://maps.google.com/maps/api/js?sensor=false&libraries=places&key=AIzaSyCaK0zaEpHV9mLBWkFYkDk1A_AcZhYcizk'></script>
+
+    <script src="js/locationpicker.jquery.js"></script>
+
     <div id="divAgregarComercio">
         <div id="divTitulo">
             <asp:Label ID="Label1" runat="server" Text="Establecimiento comercial"></asp:Label>
@@ -151,13 +174,13 @@
                         <tr>
                             <td class="auto-style2">Latitud:</td>
                             <td>
-                                <asp:TextBox ID="txtLatitud" runat="server" Width="50%">-18.26</asp:TextBox>
+                                <asp:TextBox ID="txtLatitud" runat="server" Width="60%" CssClass="form-control"></asp:TextBox>
                             </td>
                         </tr>
                         <tr>
                             <td class="auto-style2">Longitud:</td>
                             <td>
-                                <asp:TextBox ID="txtLongitud" runat="server" Width="50%">18.25</asp:TextBox>
+                                <asp:TextBox ID="txtLongitud" runat="server" Width="60%" CssClass="form-control"></asp:TextBox>
                             </td>
                         </tr>
                         <tr>
@@ -190,10 +213,80 @@
             <div id="divB1">
                 <div id="divDetalle">
                     <dx:ASPxGridView ID="ASPxGridView1" runat="server" Theme="SoftOrange"></dx:ASPxGridView>
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
                 </div>
             </div>
         </div>
         <div id="divD">
+            <%--<button type="button" data-toggle="modal" data-target="#ModalMap" class="btn btn-default">
+                                    <span class="glyphicon glyphicon-map-marker"></span>
+                                    <span id="ubicacion">Seleccionar ubicación</span>
+                                </button>--%>
+            <br />
+            <table style="width: 100%;">
+                <tr>
+                    <td style="width: 8%;">
+                        <label>Ubicacion:</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <asp:TextBox ID="ModalMapaddress" CssClass="form-control" runat="server"></asp:TextBox></td>
+                </tr>
+            </table>
+            <%--Div que despliega el mapa--%>
+            <div id="ModalMapPreview" style="width: 100%; height: 700px;"></div>
+            <%--Script para controlar el mapa.--%>
+            <script>
+                var lat;
+                var long;
+
+                function recuperarLocalizacion() {
+                    if (navigator.geolocation) {
+                        navigator.geolocation.getCurrentPosition(mostrarCoordenada);
+                    } else {
+                        //alert('El navegador no dispone la capacidad de geolocalización');
+                    }
+                }
+
+
+                function mostrarCoordenada(posicion) {
+                    lat = posicion.coords.latitude;
+                    long = posicion.coords.longitude;
+                    //var direccion = posicion.coords.latitude + "," + posicion.coords.longitude;
+                    //var mapa = "http://maps.googleapis.com/maps/api/staticmap?center="
+                     //   + direccion + "&zoom=14&size=500x500&sensor=false";
+                    //document.getElementById("dato").innerHTML = "<img src='" + mapa + "'>";
+                }
+
+
+                $('#ModalMapPreview').locationpicker({
+                    radius: 0,
+                    location: {
+                        latitude: 14.520048,
+                        longitude: -90.570004
+                        //latitude: lat,
+                        //longitude: long
+                    },
+                    enableAutocomplete: true,
+                    inputBinding: {
+                        latitudeInput: $('#<%=txtLatitud.ClientID%>'),
+                        longitudeInput: $('#<%=txtLongitud.ClientID%>'),
+                        locationNameInput: $('#<%=ModalMapaddress.ClientID%>')
+                    },
+                    onchanged: function (currentLocation, radius, isMarkerDropped) {
+                        $('#ubicacion').html($('#<%=ModalMapaddress.ClientID%>').val());
+                    }
+                });
+
+                $('#ModalMap').on('shown.bs.modal', function () {
+                    $('#ModalMapPreview').locationpicker('autosize');
+                });
+            </script>
         </div>
     </div>
     <%--Script para controlar la imagen previa que muestra el uploadfile--%>

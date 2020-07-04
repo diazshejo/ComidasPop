@@ -26,8 +26,8 @@ namespace ComidasPop
         private int codigo_pais = 0;
         private int codigo_departamento = 0;
         private int codigo_municipio = 0;
-        private double latitud = 0.0;
-        private double longitud = 0.0;
+        private String latitud = "";
+        private String longitud = "";
         private int codigo_propietario = 0;
 
         public string Nombre_establecimiento { get => nombre_establecimiento; set => nombre_establecimiento = value; }
@@ -35,8 +35,8 @@ namespace ComidasPop
         public int Codigo_pais { get => codigo_pais; set => codigo_pais = value; }
         public int Codigo_departamento { get => codigo_departamento; set => codigo_departamento = value; }
         public int Codigo_municipio { get => codigo_municipio; set => codigo_municipio = value; }
-        public double Latitud { get => latitud; set => latitud = value; }
-        public double Longitud { get => longitud; set => longitud = value; }
+        public String Latitud { get => latitud; set => latitud = value; }
+        public String Longitud { get => longitud; set => longitud = value; }
         public string Mensaje { get => mensaje; set => mensaje = value; }
         public int Codigo_propietario { get => codigo_propietario; set => codigo_propietario = value; }
 
@@ -80,14 +80,14 @@ namespace ComidasPop
                 usuario = (Usuario)Session["ses_usuario"];
                 Nombre_establecimiento = txtNombre.Text.Trim();
                 Telefono = Convert.ToInt32(txtTelefono.Text.Trim());
-                Latitud = Convert.ToDouble(txtLatitud.Text.Trim());
-                Longitud = Convert.ToDouble(txtLongitud.Text.Trim());
+                Latitud = txtLatitud.Text.Trim();
+                Longitud = txtLongitud.Text.Trim();
                 Codigo_pais = Convert.ToInt32(ddlPais.SelectedValue.ToString());
                 Codigo_departamento = Convert.ToInt32(ddlDepartamento.SelectedValue.ToString());
                 Codigo_municipio = Convert.ToInt32(ddlMunicipio.SelectedValue.ToString());
                 Codigo_propietario = Convert.ToInt32(usuario.Pro_id);
 
-
+                //Creo los parametros que se le enviaran al procedimiento almacenando.
                 SqlParameter pOpcion = new SqlParameter("@opcion", SqlDbType.SmallInt);
                 pOpcion.Value = 1;
                 SqlParameter pNombre = new SqlParameter("@nombre_comercio", SqlDbType.VarChar);
@@ -96,9 +96,9 @@ namespace ComidasPop
                 pTelefono.Value = Telefono;
                 SqlParameter pLogo = new SqlParameter("@logo", SqlDbType.Image);
                 pLogo.Value = imagen_original;
-                SqlParameter pLatitud = new SqlParameter("@latitud", SqlDbType.Decimal);
+                SqlParameter pLatitud = new SqlParameter("@latitud", SqlDbType.VarChar);
                 pLatitud.Value = Latitud;
-                SqlParameter pLongitud = new SqlParameter("@longitud", SqlDbType.Decimal);
+                SqlParameter pLongitud = new SqlParameter("@longitud", SqlDbType.VarChar);
                 pLongitud.Value = Longitud;
                 SqlParameter pPais = new SqlParameter("@id_pais", SqlDbType.Int);
                 pPais.Value = Codigo_pais;
@@ -109,8 +109,8 @@ namespace ComidasPop
                 SqlParameter pPropietario = new SqlParameter("@id_propietario", SqlDbType.Int);
                 pPropietario.Value = Codigo_propietario;
                 SqlParameter pMensaje = new SqlParameter("@mensaje", SqlDbType.VarChar, 50);
-                //pPropietario.Value = Codigo_propietario;
 
+                //Agrego los parametros al sqlcommand
                 SqlCommand cmd = new SqlCommand();
                 cmd.Parameters.Add(pOpcion);
                 cmd.Parameters.Add(pNombre);
@@ -131,9 +131,6 @@ namespace ComidasPop
                 cmd.ExecuteNonQuery();
                 Mensaje = cmd.Parameters["@mensaje"].Value.ToString();
                 conexion.Close();
-
-
-
 
                 //Mensaje = conn.Tabla("dbo.sp_crear_establecimiento_comercial 1, '"+ Nombre_establecimiento +"', "+ Telefono +", "+ parametro +", "+ Latitud +", "+ Longitud +", "+ Codigo_pais +", "+ Codigo_departamento +", "+ Codigo_municipio +", "+ codigo_propietario +"").Rows[0]["mensaje"].ToString();
 

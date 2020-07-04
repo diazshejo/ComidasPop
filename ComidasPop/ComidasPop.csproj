@@ -140,6 +140,7 @@
     <Content Include="Imagenes\logo.jpeg" />
     <Content Include="Imagenes\logo.png" />
     <Content Include="Imagenes\placeholder.png" />
+    <Content Include="js\locationpicker.jquery.js" />
     <Content Include="js\sb-admin-charts.js" />
     <Content Include="js\sb-admin-charts.min.js" />
     <Content Include="js\sb-admin-datatables.js" />
