@@ -2,6 +2,8 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.SqlClient;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Web;
@@ -67,6 +69,13 @@ namespace ComidasPop
             {
                 usuario = new Usuario();
                 dt = new DataTable();
+                //manipulacion de la imagen para guardarla en la BDD, aqui se obtienen los datos de la imagen
+                int tamanio = FilePhoto.PostedFile.ContentLength;       //obtengo el tamanio de la imagen que voy a subir
+                byte[] imagen_original = new byte[tamanio];             //creo un array del tamanio de la imagen
+                FilePhoto.PostedFile.InputStream.Read(imagen_original, 0, tamanio);
+                Bitmap imagen_binaria = new Bitmap(FilePhoto.PostedFile.InputStream);
+                //String imagenDataURL64 = "data:image/jpg,base64," + Convert.ToBase64String(imagen_original);
+                //imgPreview.ImageUrl = imagenDataURL64;
 
                 usuario = (Usuario)Session["ses_usuario"];
                 Nombre_establecimiento = txtNombre.Text.Trim();
@@ -78,7 +87,55 @@ namespace ComidasPop
                 Codigo_municipio = Convert.ToInt32(ddlMunicipio.SelectedValue.ToString());
                 Codigo_propietario = Convert.ToInt32(usuario.Pro_id);
 
-                Mensaje = conn.Tabla("dbo.sp_crear_establecimiento_comercial 1, '"+ Nombre_establecimiento +"', "+ Telefono +", null, "+ Latitud +", "+ Longitud +", "+ Codigo_pais +", "+ Codigo_departamento +", "+ Codigo_municipio +", "+ codigo_propietario +"").Rows[0]["mensaje"].ToString();
+
+                SqlParameter pOpcion = new SqlParameter("@opcion", SqlDbType.SmallInt);
+                pOpcion.Value = 1;
+                SqlParameter pNombre = new SqlParameter("@nombre_comercio", SqlDbType.VarChar);
+                pNombre.Value = Nombre_establecimiento;
+                SqlParameter pTelefono = new SqlParameter("@telefono", SqlDbType.Int);
+                pTelefono.Value = Telefono;
+                SqlParameter pLogo = new SqlParameter("@logo", SqlDbType.Image);
+                pLogo.Value = imagen_original;
+                SqlParameter pLatitud = new SqlParameter("@latitud", SqlDbType.Decimal);
+                pLatitud.Value = Latitud;
+                SqlParameter pLongitud = new SqlParameter("@longitud", SqlDbType.Decimal);
+                pLongitud.Value = Longitud;
+                SqlParameter pPais = new SqlParameter("@id_pais", SqlDbType.Int);
+                pPais.Value = Codigo_pais;
+                SqlParameter pDepartamento = new SqlParameter("@id_departamento", SqlDbType.Int);
+                pDepartamento.Value = Codigo_departamento;
+                SqlParameter pMunicipio = new SqlParameter("@id_municipio", SqlDbType.Int);
+                pMunicipio.Value = Codigo_municipio;
+                SqlParameter pPropietario = new SqlParameter("@id_propietario", SqlDbType.Int);
+                pPropietario.Value = Codigo_propietario;
+                SqlParameter pMensaje = new SqlParameter("@mensaje", SqlDbType.VarChar, 50);
+                //pPropietario.Value = Codigo_propietario;
+
+                SqlCommand cmd = new SqlCommand();
+                cmd.Parameters.Add(pOpcion);
+                cmd.Parameters.Add(pNombre);
+                cmd.Parameters.Add(pTelefono);
+                cmd.Parameters.Add(pLogo);
+                cmd.Parameters.Add(pLatitud);
+                cmd.Parameters.Add(pLongitud);
+                cmd.Parameters.Add(pPais);
+                cmd.Parameters.Add(pDepartamento);
+                cmd.Parameters.Add(pMunicipio);
+                cmd.Parameters.Add(pPropietario);
+                cmd.Parameters.Add(pMensaje).Direction = ParameterDirection.Output;
+                SqlConnection conexion = new SqlConnection(conn.CadenaConexionBD());
+                conexion.Open();
+                cmd.Connection = conexion;
+                cmd.CommandText = "dbo.sp_crear_establecimiento_comercial";
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.ExecuteNonQuery();
+                Mensaje = cmd.Parameters["@mensaje"].Value.ToString();
+                conexion.Close();
+
+
+
+
+                //Mensaje = conn.Tabla("dbo.sp_crear_establecimiento_comercial 1, '"+ Nombre_establecimiento +"', "+ Telefono +", "+ parametro +", "+ Latitud +", "+ Longitud +", "+ Codigo_pais +", "+ Codigo_departamento +", "+ Codigo_municipio +", "+ codigo_propietario +"").Rows[0]["mensaje"].ToString();
 
                 if(Mensaje.Equals("OK"))
                 {
@@ -100,7 +157,7 @@ namespace ComidasPop
             }
             catch(Exception ex)
             {
-
+                ClientScript.RegisterStartupScript(this.GetType(), "mensaje", "<script>swal('Error', 'Ocurrió una excepción en la base de datos al tratar de crear el establecimiento comercial', 'error')</script>");
             }
         }
 
