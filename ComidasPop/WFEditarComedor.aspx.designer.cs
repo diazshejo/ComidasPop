@@ -11,7 +11,7 @@ namespace ComidasPop
 {
 
 
-    public partial class WFAgregarComercio
+    public partial class WFEditarComedor
     {
 
         /// <summary>
@@ -78,22 +78,22 @@ namespace ComidasPop
         protected global::System.Web.UI.WebControls.DropDownList ddlMunicipio;
 
         /// <summary>
-        /// Control btnMapa.
+        /// Control txtLatitud.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlButton btnMapa;
+        protected global::System.Web.UI.WebControls.TextBox txtLatitud;
 
         /// <summary>
-        /// Control chkSinUbicacion.
+        /// Control txtLongitud.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox chkSinUbicacion;
+        protected global::System.Web.UI.WebControls.TextBox txtLongitud;
 
         /// <summary>
         /// Control FilePhoto.
@@ -130,23 +130,5 @@ namespace ComidasPop
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox ModalMapaddress;
-
-        /// <summary>
-        /// Control txtLatitud.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtLatitud;
-
-        /// <summary>
-        /// Control txtLongitud.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtLongitud;
     }
 }

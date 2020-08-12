@@ -120,7 +120,7 @@ width:100%;
                                                     <li>
                                                         <label class="tree-toggler nav-header"><i class="material-icons">restaurant_menu</i>  Menú gastronómico</label>
                                                         <ul class="nav nav-list tree">
-                                                            <li><a href="#"><i class="fa fa-check-circle"></i>  Menús</a></li>
+                                                            <li><a href="/WFAgregarMenu.aspx"><i class="fa fa-check-circle"></i>  Menús</a></li>
                                                             <li><a href="#"><i class="fa fa-check-circle"></i>  Complementos</a></li>
                                                             <li><a href="#"><i class="fa fa-check-circle"></i>  Calificaciones</a></li>
                                                         </ul>

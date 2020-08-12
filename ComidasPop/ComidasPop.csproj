@@ -137,6 +137,7 @@
     <Content Include="css\style.css" />
     <Content Include="css\sweetalert.css" />
     <Content Include="Global.asax" />
+    <Content Include="Imagenes\editar.png" />
     <Content Include="Imagenes\logo.jpeg" />
     <Content Include="Imagenes\logo.png" />
     <Content Include="Imagenes\placeholder.png" />
@@ -177,12 +178,15 @@
     <Content Include="vendor\jquery\jquery.slim.min.js" />
     <Content Include="Web.config" />
     <Content Include="WFAgregarComercio.aspx" />
+    <Content Include="WFAgregarMenu.aspx" />
+    <Content Include="WFEditarComedor.aspx" />
     <Content Include="WFLogin.aspx" />
     <Content Include="WFPrincipal.aspx" />
     <Content Include="WFRegistro.aspx" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Code\Conexion.cs" />
+    <Compile Include="App_Code\Comedor.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -201,6 +205,20 @@
     </Compile>
     <Compile Include="WFAgregarComercio.aspx.designer.cs">
       <DependentUpon>WFAgregarComercio.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="WFAgregarMenu.aspx.cs">
+      <DependentUpon>WFAgregarMenu.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WFAgregarMenu.aspx.designer.cs">
+      <DependentUpon>WFAgregarMenu.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="WFEditarComedor.aspx.cs">
+      <DependentUpon>WFEditarComedor.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WFEditarComedor.aspx.designer.cs">
+      <DependentUpon>WFEditarComedor.aspx</DependentUpon>
     </Compile>
     <Compile Include="WFLogin.aspx.cs">
       <DependentUpon>WFLogin.aspx</DependentUpon>

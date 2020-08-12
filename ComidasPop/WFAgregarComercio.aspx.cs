@@ -1,4 +1,7 @@
-﻿using DevExpress.Utils.Serializing;
+﻿using DevExpress.ClipboardSource.SpreadsheetML;
+using DevExpress.Utils.Serializing;
+using DevExpress.Web.Internal;
+using DevExpress.XtraPrinting;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -16,10 +19,13 @@ namespace ComidasPop
     {
         private Conexion conn = new Conexion();
         private Usuario usuario = null;
+        private Comedor comedor = null;
         private DataTable dt = null;
         private DataTable dtPaises = null;
         private DataTable dtDepartamentos = null;
         private DataTable dtMunicipios = null;
+        private DataTable dtComercios = null;
+        private int codigo_comercio = 0;
         private String nombre_establecimiento = "";
         private String mensaje = "";
         private int telefono = 0;
@@ -39,14 +45,21 @@ namespace ComidasPop
         public String Longitud { get => longitud; set => longitud = value; }
         public string Mensaje { get => mensaje; set => mensaje = value; }
         public int Codigo_propietario { get => codigo_propietario; set => codigo_propietario = value; }
+        public int Codigo_comercio { get => codigo_comercio; set => codigo_comercio = value; }
 
         protected void Page_Load(object sender, EventArgs e)
         {
             conn.ConexionSql(conn.CadenaConexionBD());
+
             if (!Page.IsPostBack)
             {
                 Llenar_Paises();
+                
             }
+            Llenar_Comercios();
+            txtLatitud.Attributes.Add("readonly", "readonly");
+            txtLongitud.Attributes.Add("readonly", "readonly");
+            //ModalMapaddress.Attributes.Add("readonly", "readonly");
         }
 
         public void Llenar_Paises()
@@ -63,29 +76,92 @@ namespace ComidasPop
             ddlPais.SelectedIndex = 0;
         }
 
+        public void Llenar_Departamentos(int codigo_pais)
+        {
+            dtDepartamentos = new DataTable();
+
+            dtDepartamentos = conn.Tabla("dbo.sp_obtener_departamentos 1, " + Codigo_pais + "");
+
+            ddlDepartamento.DataSource = dtDepartamentos;
+            ddlDepartamento.DataTextField = "dep_nombre";
+            ddlDepartamento.DataValueField = "dep_id";
+            ddlDepartamento.DataBind();
+
+            //Agrego un item en blanco en el combobox para que el usuario se vea obligado a seleccionar el departamento
+            ddlDepartamento.Items.Insert(0, new ListItem(String.Empty, String.Empty));
+            ddlDepartamento.SelectedIndex = 0;
+        }
+
+        public void Llenar_Municipios(int codigo_departamento)
+        {
+            dtMunicipios = new DataTable();
+
+            dtMunicipios = conn.Tabla("dbo.sp_obtener_municipios 1, " + Codigo_departamento + "");
+
+            ddlMunicipio.DataSource = dtMunicipios;
+            ddlMunicipio.DataTextField = "mun_nombre";
+            ddlMunicipio.DataValueField = "mun_id";
+            ddlMunicipio.DataBind();
+
+            //Agrego un item en blanco en el combobox para que el usuario se vea obligado a seleccionar el departamento
+            ddlMunicipio.Items.Insert(0, new ListItem(String.Empty, String.Empty));
+            ddlMunicipio.SelectedIndex = 0;
+        }
+
+        public void Llenar_Comercios()
+        {
+            try
+            {
+                dtComercios = new DataTable();
+                dtComercios = conn.Tabla("dbo.sp_obtener_establecimientos_comerciales 1, " + Session["ses_ProId"]);
+                gvDatosComercio.DataSource = dtComercios;
+                gvDatosComercio.DataBind();
+            }
+            catch(Exception ex)
+            {
+
+            }
+        }
+
         protected void btnGuardar_Click(object sender, EventArgs e)
         {
             try
             {
-                usuario = new Usuario();
+                //usuario = new Usuario();
                 dt = new DataTable();
                 //manipulacion de la imagen para guardarla en la BDD, aqui se obtienen los datos de la imagen
                 int tamanio = FilePhoto.PostedFile.ContentLength;       //obtengo el tamanio de la imagen que voy a subir
                 byte[] imagen_original = new byte[tamanio];             //creo un array del tamanio de la imagen
                 FilePhoto.PostedFile.InputStream.Read(imagen_original, 0, tamanio);
-                Bitmap imagen_binaria = new Bitmap(FilePhoto.PostedFile.InputStream);
+                Bitmap imagen_binaria = null;
+
+                if (tamanio > 0)
+                {
+                    imagen_binaria = new Bitmap(FilePhoto.PostedFile.InputStream);
+                }
+
                 //String imagenDataURL64 = "data:image/jpg,base64," + Convert.ToBase64String(imagen_original);
                 //imgPreview.ImageUrl = imagenDataURL64;
 
-                usuario = (Usuario)Session["ses_usuario"];
+                //usuario = (Usuario)Session["ses_usuario"];
                 Nombre_establecimiento = txtNombre.Text.Trim();
                 Telefono = Convert.ToInt32(txtTelefono.Text.Trim());
-                Latitud = txtLatitud.Text.Trim();
-                Longitud = txtLongitud.Text.Trim();
+
+                if (chkSinUbicacion.Checked)
+                {
+                    Latitud = "0";
+                    Longitud = "0";
+                }
+                else
+                {
+                    Latitud = txtLatitud.Text.Trim();
+                    Longitud = txtLongitud.Text.Trim();
+                }
+
                 Codigo_pais = Convert.ToInt32(ddlPais.SelectedValue.ToString());
                 Codigo_departamento = Convert.ToInt32(ddlDepartamento.SelectedValue.ToString());
                 Codigo_municipio = Convert.ToInt32(ddlMunicipio.SelectedValue.ToString());
-                Codigo_propietario = Convert.ToInt32(usuario.Pro_id);
+                Codigo_propietario = Convert.ToInt32(Session["ses_ProId"].ToString());
 
                 //Creo los parametros que se le enviaran al procedimiento almacenando.
                 SqlParameter pOpcion = new SqlParameter("@opcion", SqlDbType.SmallInt);
@@ -136,6 +212,7 @@ namespace ComidasPop
 
                 if(Mensaje.Equals("OK"))
                 {
+                    Llenar_Comercios();
                     ClientScript.RegisterStartupScript(this.GetType(), "mensaje", "<script> swal({ " +
                                                                                                   " title: 'Mensaje', " +
                                                                                                   " text: 'Se ha registrado el comercio con éxito', " +
@@ -159,8 +236,7 @@ namespace ComidasPop
         }
 
         protected void ddlPais_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            dtDepartamentos = new DataTable();
+            {
             //valido que el elemento seleccionado contenga informacion
             if (ddlPais.SelectedValue.Equals(""))
             {
@@ -171,21 +247,13 @@ namespace ComidasPop
                 Codigo_pais = Convert.ToInt32(ddlPais.SelectedValue.ToString());
             }
 
-            dtDepartamentos = conn.Tabla("dbo.sp_obtener_departamentos 1, "+ Codigo_pais +"");
+            Llenar_Departamentos(Codigo_pais);
 
-            ddlDepartamento.DataSource = dtDepartamentos;
-            ddlDepartamento.DataTextField = "dep_nombre";
-            ddlDepartamento.DataValueField = "dep_id";
-            ddlDepartamento.DataBind();
-
-            //Agrego un item en blanco en el combobox para que el usuario se vea obligado a seleccionar el departamento
-            ddlDepartamento.Items.Insert(0, new ListItem(String.Empty, String.Empty));
-            ddlDepartamento.SelectedIndex = 0;
+            
         }
 
         protected void ddlDepartamento_SelectedIndexChanged(object sender, EventArgs e)
         {
-            dtMunicipios = new DataTable();
             //valido que el elemento seleccionado contenga informacion
             if (ddlDepartamento.SelectedValue.Equals(""))
             {
@@ -196,16 +264,55 @@ namespace ComidasPop
                 Codigo_departamento = Convert.ToInt32(ddlDepartamento.SelectedValue.ToString());
             }
 
-            dtMunicipios = conn.Tabla("dbo.sp_obtener_municipios 1, " + Codigo_departamento + "");
+            Llenar_Municipios(Codigo_departamento);
+        }
 
-            ddlMunicipio.DataSource = dtMunicipios;
-            ddlMunicipio.DataTextField = "mun_nombre";
-            ddlMunicipio.DataValueField = "mun_id";
-            ddlMunicipio.DataBind();
+        protected void gvDatosComercio_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
+            comedor = new Comedor();
+            int fila = Convert.ToInt32(e.CommandArgument);
 
-            //Agrego un item en blanco en el combobox para que el usuario se vea obligado a seleccionar el departamento
-            ddlMunicipio.Items.Insert(0, new ListItem(String.Empty, String.Empty));
-            ddlMunicipio.SelectedIndex = 0;
+            comedor.Com_id = Convert.ToInt32(gvDatosComercio.DataKeys[fila].Values[0].ToString());
+            comedor.Com_nombre = gvDatosComercio.DataKeys[fila].Values[1].ToString();
+            comedor.Com_telefono = gvDatosComercio.DataKeys[fila].Values[2].ToString();
+            if(gvDatosComercio.DataKeys[fila].Values[3].ToString().Equals("Activo"))
+            {
+                comedor.Com_estado = 'A';
+            }
+            if(gvDatosComercio.DataKeys[fila].Values[3].ToString().Equals("Inactivo"))
+            {
+                comedor.Com_estado = 'I';
+            }
+            //comedor.Com_estado = Convert.ToChar(gvDatosComercio.DataKeys[fila].Values[3].ToString());
+            comedor.Com_latitud = gvDatosComercio.DataKeys[fila].Values[6].ToString();
+            comedor.Com_longitud = gvDatosComercio.DataKeys[fila].Values[7].ToString();
+            comedor.Pai_id = Convert.ToInt32(gvDatosComercio.DataKeys[fila].Values[8].ToString());
+            comedor.Dep_id = Convert.ToInt32(gvDatosComercio.DataKeys[fila].Values[9].ToString());
+            comedor.Mun_id = Convert.ToInt32(gvDatosComercio.DataKeys[fila].Values[10].ToString());
+            comedor.Pro_id = Convert.ToInt32(gvDatosComercio.DataKeys[fila].Values[11].ToString());
+            comedor.Nombre_pais = gvDatosComercio.DataKeys[fila].Values[12].ToString();
+            comedor.Nombre_departamento = gvDatosComercio.DataKeys[fila].Values[13].ToString();
+            comedor.Nombre_municipio = gvDatosComercio.DataKeys[fila].Values[14].ToString();
+
+            Session["ses_Comedor"] = comedor;
+
+            //Response.Redirect("WFEditarComedor.aspx");
+        }
+
+        protected void chkSinUbicacion_CheckedChanged(object sender, EventArgs e)
+        {
+            if(chkSinUbicacion.Checked)
+            {
+                btnMapa.Disabled = true;
+                Latitud = "0";
+                longitud = "0";
+            }
+            else
+            {
+                btnMapa.Disabled = false;
+                Latitud = txtLatitud.Text.Trim();
+                Longitud = txtLongitud.Text.Trim();
+            }
         }
     }
 }
