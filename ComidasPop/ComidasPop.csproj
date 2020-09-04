@@ -179,6 +179,7 @@
     <Content Include="Web.config" />
     <Content Include="WFAgregarComercio.aspx" />
     <Content Include="WFAgregarMenu.aspx" />
+    <Content Include="WFCatalogoMenu.aspx" />
     <Content Include="WFEditarComedor.aspx" />
     <Content Include="WFLogin.aspx" />
     <Content Include="WFPrincipal.aspx" />
@@ -212,6 +213,13 @@
     </Compile>
     <Compile Include="WFAgregarMenu.aspx.designer.cs">
       <DependentUpon>WFAgregarMenu.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="WFCatalogoMenu.aspx.cs">
+      <DependentUpon>WFCatalogoMenu.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WFCatalogoMenu.aspx.designer.cs">
+      <DependentUpon>WFCatalogoMenu.aspx</DependentUpon>
     </Compile>
     <Compile Include="WFEditarComedor.aspx.cs">
       <DependentUpon>WFEditarComedor.aspx</DependentUpon>

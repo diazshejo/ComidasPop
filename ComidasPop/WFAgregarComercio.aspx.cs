@@ -248,8 +248,6 @@ namespace ComidasPop
             }
 
             Llenar_Departamentos(Codigo_pais);
-
-            
         }
 
         protected void ddlDepartamento_SelectedIndexChanged(object sender, EventArgs e)

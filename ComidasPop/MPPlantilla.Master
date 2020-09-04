@@ -122,17 +122,17 @@ width:100%;
                                                         <ul class="nav nav-list tree">
                                                             <li><a href="/WFAgregarMenu.aspx"><i class="fa fa-check-circle"></i>  Menús</a></li>
                                                             <li><a href="#"><i class="fa fa-check-circle"></i>  Complementos</a></li>
-                                                            <li><a href="#"><i class="fa fa-check-circle"></i>  Calificaciones</a></li>
+                                                            <li><a href="/WFCatalogoMenu.aspx"><i class="fa fa-check-circle"></i>  Calificaciones</a></li>
                                                         </ul>
                                                     </li>
                                                     <li class="divider"></li>
                                                     <li>
                                                         <label class="tree-toggler nav-header"><i class="material-icons">card_membership</i>    Membresías</label>
                                                         <ul class="nav nav-list tree">
-                                                            <li><a href="#"><i class="fa fa-check-circle"></i>  Mis suscripciones</a></li>
+                                                            <%--<li><a href="#"><i class="fa fa-check-circle"></i>  Mis suscripciones</a></li>--%>
                                                             <li><a href="#"><i class="fa fa-check-circle"></i>  Mi cuenta</a></li>
-                                                            <li><a href="#"><i class="fa fa-check-circle"></i>  Metodos de pago</a></li>
-                                                            <li><a href="#"><i class="fa fa-check-circle"></i>  Historico de membersía</a></li>
+                                                            <%--<li><a href="#"><i class="fa fa-check-circle"></i>  Metodos de pago</a></li>--%>
+                                                            <%--<li><a href="#"><i class="fa fa-check-circle"></i>  Historico de membersía</a></li>--%>
                                                         </ul>
                                                     </li>
                                                     <li class="divider"></li>
