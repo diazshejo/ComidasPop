@@ -94,7 +94,7 @@ width:100%;
             <div id="divUser">
                 <asp:Label ID="Label3" runat="server" Text="Bienvenido " ForeColor="White"></asp:Label>
                 <br />
-                <asp:Label ID="Label4" runat="server" Text="Edgar Mayorga" ForeColor="White"></asp:Label>
+                <asp:Label ID="lblUsuario" runat="server" Text="" ForeColor="White"></asp:Label>
             </div>
         </div>
         <div id="divCentral">
@@ -121,8 +121,7 @@ width:100%;
                                                         <label class="tree-toggler nav-header"><i class="material-icons">restaurant_menu</i>  Menú gastronómico</label>
                                                         <ul class="nav nav-list tree">
                                                             <li><a href="/WFAgregarMenu.aspx"><i class="fa fa-check-circle"></i>  Menús</a></li>
-                                                            <li><a href="#"><i class="fa fa-check-circle"></i>  Complementos</a></li>
-                                                            <li><a href="/WFCatalogoMenu.aspx"><i class="fa fa-check-circle"></i>  Calificaciones</a></li>
+                                                            <li><a href="/WFCatalogoMenu.aspx"><i class="fa fa-check-circle"></i>  Catálogo de Menús</a></li>
                                                         </ul>
                                                     </li>
                                                     <li class="divider"></li>

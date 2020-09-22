@@ -35,6 +35,8 @@ namespace ComidasPop
         private String latitud = "";
         private String longitud = "";
         private int codigo_propietario = 0;
+        private String direccion = "";
+        private int codigoZona = 0;
 
         public string Nombre_establecimiento { get => nombre_establecimiento; set => nombre_establecimiento = value; }
         public int Telefono { get => telefono; set => telefono = value; }
@@ -46,6 +48,8 @@ namespace ComidasPop
         public string Mensaje { get => mensaje; set => mensaje = value; }
         public int Codigo_propietario { get => codigo_propietario; set => codigo_propietario = value; }
         public int Codigo_comercio { get => codigo_comercio; set => codigo_comercio = value; }
+        public int CodigoZona { get => codigoZona; set => codigoZona = value; }
+        public string Direccion { get => direccion; set => direccion = value; }
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -162,6 +166,8 @@ namespace ComidasPop
                 Codigo_departamento = Convert.ToInt32(ddlDepartamento.SelectedValue.ToString());
                 Codigo_municipio = Convert.ToInt32(ddlMunicipio.SelectedValue.ToString());
                 Codigo_propietario = Convert.ToInt32(Session["ses_ProId"].ToString());
+                CodigoZona = Convert.ToInt32(ddlZonas.SelectedValue.ToString());
+                Direccion = txtDireccion.Text.Trim();
 
                 //Creo los parametros que se le enviaran al procedimiento almacenando.
                 SqlParameter pOpcion = new SqlParameter("@opcion", SqlDbType.SmallInt);
@@ -176,6 +182,10 @@ namespace ComidasPop
                 pLatitud.Value = Latitud;
                 SqlParameter pLongitud = new SqlParameter("@longitud", SqlDbType.VarChar);
                 pLongitud.Value = Longitud;
+                SqlParameter pDireccion = new SqlParameter("@direccion", SqlDbType.VarChar, 150);
+                pDireccion.Value = Direccion;
+                SqlParameter pZona = new SqlParameter("@id_zona", SqlDbType.Int);
+                pZona.Value = CodigoZona;
                 SqlParameter pPais = new SqlParameter("@id_pais", SqlDbType.Int);
                 pPais.Value = Codigo_pais;
                 SqlParameter pDepartamento = new SqlParameter("@id_departamento", SqlDbType.Int);
@@ -185,6 +195,8 @@ namespace ComidasPop
                 SqlParameter pPropietario = new SqlParameter("@id_propietario", SqlDbType.Int);
                 pPropietario.Value = Codigo_propietario;
                 SqlParameter pMensaje = new SqlParameter("@mensaje", SqlDbType.VarChar, 50);
+                
+
 
                 //Agrego los parametros al sqlcommand
                 SqlCommand cmd = new SqlCommand();
@@ -194,6 +206,8 @@ namespace ComidasPop
                 cmd.Parameters.Add(pLogo);
                 cmd.Parameters.Add(pLatitud);
                 cmd.Parameters.Add(pLongitud);
+                cmd.Parameters.Add(pDireccion);
+                cmd.Parameters.Add(pZona);
                 cmd.Parameters.Add(pPais);
                 cmd.Parameters.Add(pDepartamento);
                 cmd.Parameters.Add(pMunicipio);
@@ -213,7 +227,7 @@ namespace ComidasPop
                 if(Mensaje.Equals("OK"))
                 {
                     Llenar_Comercios();
-                    ClientScript.RegisterStartupScript(this.GetType(), "mensaje", "<script> swal({ " +
+                    ClientScript.RegisterStartupScript(this.GetType(), "Mensaje", "<script> swal({ " +
                                                                                                   " title: 'Mensaje', " +
                                                                                                   " text: 'Se ha registrado el comercio con éxito', " +
                                                                                                   " type: 'success', " +
@@ -226,7 +240,7 @@ namespace ComidasPop
                 }
                 if(Mensaje.Equals("ERROR"))
                 {
-                    ClientScript.RegisterStartupScript(this.GetType(), "mensaje", "<script>swal('Error', 'Ocurrió un error al tratar de crear el establecimiento comercial', 'error')</script>");
+                    ClientScript.RegisterStartupScript(this.GetType(), "Error", "<script>swal('Error', 'Ocurrió un error al tratar de crear el establecimiento comercial', 'error')</script>");
                 }
             }
             catch(Exception ex)

@@ -23,6 +23,7 @@ namespace ComidasPop
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            Session["ses_usuario"] = null;
             conn.ConexionSql(conn.CadenaConexionBD());
         }
 

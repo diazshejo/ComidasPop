@@ -22,6 +22,10 @@ namespace ComidasPop
 
                     Session["ses_ProId"] = usuario.Pro_id;
                 }
+                else
+                {
+                    Response.Redirect("WFLogin.aspx");
+                }
             }
         }
     }

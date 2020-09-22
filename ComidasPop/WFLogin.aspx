@@ -3,7 +3,7 @@
 <%@ Register Assembly="DevExpress.Web.v19.2, Version=19.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" Namespace="DevExpress.Web" TagPrefix="dx" %>
 
 <!DOCTYPE html>
-
+<META HTTP-EQUIV="Cache-Control" CONTENT ="no-cache">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -89,7 +89,7 @@
             font-size: 16px;
         }
 
-        #lblMensaje{
+        #lblMensaje {
             width: 100%;
             font-family: 'Century Gothic';
             /*color: aqua;*/
@@ -116,7 +116,7 @@
 
     <link href="css/sweetalert.css" rel="stylesheet" />
     <script src="js/sweetalert.min.js" type="text/javascript"></script>
-    <link rel="SHORTCUT ICON" href="Imagenes/logo.png"/>
+    <link rel="SHORTCUT ICON" href="Imagenes/logo.png" />
 </head>
 <body>
     <form id="form1" runat="server">
@@ -181,3 +181,8 @@
     </form>
 </body>
 </html>
+<script>
+    window.location.hash = "no-back-button";
+    window.location.hash = "Again-No-back-button";//esta linea es necesaria para chrome
+    window.onhashchange = function () { window.location.hash = "no-back-button"; }
+</script>

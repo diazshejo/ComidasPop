@@ -22,6 +22,8 @@ namespace ComidasPop
         private String nombre_pais = "";
         private String nombre_departamento = "";
         private String nombre_municipio = "";
+        private String com_direccion = "";
+        private int com_zona = 0;
 
         public int Com_id { get => com_id; set => com_id = value; }
         public string Com_nombre { get => com_nombre; set => com_nombre = value; }
@@ -37,5 +39,7 @@ namespace ComidasPop
         public string Nombre_pais { get => nombre_pais; set => nombre_pais = value; }
         public string Nombre_departamento { get => nombre_departamento; set => nombre_departamento = value; }
         public string Nombre_municipio { get => nombre_municipio; set => nombre_municipio = value; }
+        public string Com_direccion { get => com_direccion; set => com_direccion = value; }
+        public int Com_zona { get => com_zona; set => com_zona = value; }
     }
 }

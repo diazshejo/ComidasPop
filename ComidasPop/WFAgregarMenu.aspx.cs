@@ -5,6 +5,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -39,6 +40,7 @@ namespace ComidasPop
                 Session["sDtMenu"] = InicializaDTMenu();
                 gvMenu.DataSource = (DataTable)Session["sDtMenu"];
                 gvMenu.DataBind();
+                btnGuardar.Visible = false;
                 divCargaMenu.Visible = false;
             }
         }
@@ -138,7 +140,8 @@ namespace ComidasPop
                     {
                         InsertarFilaDtAuxiliar();
                     }
-                    //seCantidad.Text = "1";
+                    btnGuardar.Visible = true;
+                    seCantidad.Value = 1;
                     Session["sDtMenu"] = dtAuxiliar;
                     gvMenu.DataSource = (DataTable)Session["sDtMenu"];
                     gvMenu.DataBind();
@@ -148,71 +151,6 @@ namespace ComidasPop
             {
 
             }
-            
-            /*String vNombreMenu = "";
-            String vDescripcionMenu = "";
-            String vPrecioMenu = "";
-            String vImagen = "";
-            int tamanio_imagen = 0;
-            byte[] imagen_original = null;
-            dtAuxiliar = InicializaDTMenu();    //inicializo la tabla auxiliar, esta se limpia cada vez que carga la pagina.
-            //valido si la tabla auxiliar en memoria lleva filas, que las limpie todas
-            if(dtAuxiliar.Rows.Count > 0)
-            {
-                dtAuxiliar.Rows.Clear();
-            }
-            //si el datatable ya tiene una fila
-            if (((DataTable)Session["sDtMenu"]).Rows.Count > 0)
-            {
-                for (int i = 0; i < ((DataTable)Session["sDtMenu"]).Rows.Count; i++)
-                {
-                    TextBox txtNombre = (TextBox)gvMenu.Rows[i].FindControl("txtNombre");
-                    TextBox txtDescripcion = (TextBox)gvMenu.Rows[i].FindControl("txtDescripcion");
-                    TextBox txtPrecio = (TextBox)gvMenu.Rows[i].FindControl("txtPrecio");
-                    FileUpload fuImagen = (FileUpload)gvMenu.Rows[i].FindControl("fuImagen");
-                    DataRow drFila = dtAuxiliar.NewRow();
-
-                    vNombreMenu = txtNombre.Text.Trim();
-                    vDescripcionMenu = txtDescripcion.Text.Trim();
-                    vPrecioMenu = txtPrecio.Text.Trim();
-                    //vImagen = fuImagen.FileName;
-
-                    TextBox nombre_menu = new TextBox();
-                    TextBox descripcion_menu = new TextBox();
-                    TextBox precio_menu = new TextBox();
-                    FileUpload imagen_menu = new FileUpload();
-
-                    nombre_menu.Text = vNombreMenu;
-                    descripcion_menu.Text = vDescripcionMenu;
-                    precio_menu.Text = vPrecioMenu;
-
-                    drFila[0] = Convert.ToInt16(Session["sContadorFila"].ToString());
-                    drFila[1] = nombre_menu;
-                    drFila[2] = descripcion_menu;
-                    drFila[3] = precio_menu;
-                    drFila[4] = imagen_menu;
-                    //incremento el contador de la fila
-                    Session["sContadorFila"] = Convert.ToInt16(Session["sContadorFila"].ToString()) + 1;
-                    //agrego la fila al datatable
-                    dtAuxiliar.Rows.Add(drFila);
-                }
-                //inserto una fila en blanco al final del DataTable
-                InsertarFilaDtAuxiliar();
-                //Limpio o quito todas las filas del DataTable que se mostrara en pantalla
-                ((DataTable)Session["sDtMenu"]).Clear();
-                //Asigno las filas del DataTable Auxiliar al DataTable que se mostrara en pantalla
-                Session["sDtMenu"] = dtAuxiliar;
-
-                gvMenu.DataSource = ((DataTable)Session["sDtMenu"]);
-                gvMenu.DataBind();
-            }
-            else   //si el datatable no tiene filas y es la primera vez.
-            {
-                //inserto una fila en blanco en el DataTable que se muestra en pantalla
-                InsertarFilaDtMenu();
-                gvMenu.DataSource = (DataTable)Session["sDtMenu"];
-                gvMenu.DataBind();
-            }*/
         }
 
         public System.Drawing.Image RedimensionarImagen(System.Drawing.Image ImagenOriginal, int alto)
@@ -226,12 +164,51 @@ namespace ComidasPop
             return NuevaImagenRedimensionada;
         }
 
+        public String ValidarPrecio()
+        {
+            Regex rgx = new Regex("^[0-9]+.?[0-9]*");   //expresion regular para valores numericos con punto decimal
+            String mensaje = "";
+            String precio = "";
+            int total_filas = 0;
+
+            try
+            {
+                total_filas = ((DataTable)Session["sDtMenu"]).Rows.Count;
+
+                if (total_filas > 0)
+                {
+                    for(int i = 0; i < total_filas; i++)
+                    {
+                        TextBox txtPrecio = (TextBox)gvMenu.Rows[i].FindControl("txtPrecio");
+                        precio = txtPrecio.Text.Trim();
+
+                        if(rgx.IsMatch(precio))
+                        {
+                            mensaje = "OK";
+                        }
+                        else
+                        {
+                            mensaje = "ERROR";
+                            break;
+                        }
+                    }
+                }
+            }
+            catch(Exception ex)
+            {
+
+            }
+
+            return mensaje;
+        }
+
         protected void btnGuardar_Click(object sender, EventArgs e)
         {
             int total_registros = 0;
             String nombre_menu = "";
             String descripcion_menu = "";
             Double precio_menu = 0;
+            int dia = 0;
             int tamanio_imagen = 0;
             byte[] imagen_original = null;
 
@@ -239,74 +216,92 @@ namespace ComidasPop
 
             try
             {
-                if (((DataTable)Session["sDtMenu"]).Rows.Count > 0)
+                if (ValidarPrecio().Equals("OK"))   //valido que los campos de precio que tenga el gridview sean validos.
                 {
-                    //recorro los controles del gridview y obtengo los valores que le ingrese
-                    for (int i = 0; i < ((DataTable)Session["sDtMenu"]).Rows.Count; i++)
+                    if (((DataTable)Session["sDtMenu"]).Rows.Count > 0)
                     {
-                        TextBox txtNombre = (TextBox)gvMenu.Rows[i].FindControl("txtNombre");
-                        TextBox txtDescripcion = (TextBox)gvMenu.Rows[i].FindControl("txtDescripcion");
-                        TextBox txtPrecio = (TextBox)gvMenu.Rows[i].FindControl("txtPrecio");
-                        FileUpload fuImagen =  (FileUpload)gvMenu.Rows[i].FindControl("fuImagen");
-
-                        nombre_menu = txtNombre.Text.Trim();
-                        descripcion_menu = txtDescripcion.Text.Trim();
-                        precio_menu = Convert.ToDouble(txtPrecio.Text.Trim());
-                        Codigo_comedor = Convert.ToInt32(ddlComedor.SelectedValue.ToString());
-                        Codigo_categoria = Convert.ToInt32(ddlCategoria.SelectedValue.ToString());
-                        tamanio_imagen = fuImagen.PostedFile.ContentLength;
-                        imagen_original = new byte[tamanio_imagen];
-                        fuImagen.PostedFile.InputStream.Read(imagen_original, 0, tamanio_imagen);
-                        //Bitmap imagen_binaria = null;
-                        /*if (tamanio_imagen > 0)
+                        //recorro los controles del gridview y obtengo los valores que le ingrese
+                        for (int i = 0; i < ((DataTable)Session["sDtMenu"]).Rows.Count; i++)
                         {
-                            imagen_binaria = new Bitmap(fuImagen.PostedFile.InputStream);
-                        }*/
-                        Bitmap imagen_binaria = new Bitmap(fuImagen.PostedFile.InputStream);
-                        //Crear una imagen Thumbnail
-                        System.Drawing.Image imgThumbnail;
-                        int tamanioThumbnail = 200;
-                        imgThumbnail = RedimensionarImagen(imagen_binaria, tamanioThumbnail);
-                        byte[] bImagenThumbnail = new byte[tamanioThumbnail];
-                        ImageConverter convertidor = new ImageConverter();
-                        bImagenThumbnail = (byte[])convertidor.ConvertTo(imgThumbnail, typeof(byte[]));
+                            TextBox txtNombre = (TextBox)gvMenu.Rows[i].FindControl("txtNombre");
+                            TextBox txtDescripcion = (TextBox)gvMenu.Rows[i].FindControl("txtDescripcion");
+                            TextBox txtPrecio = (TextBox)gvMenu.Rows[i].FindControl("txtPrecio");
+                            DropDownList ddlDias = (DropDownList)gvMenu.Rows[i].FindControl("ddlDias");
+                            FileUpload fuImagen = (FileUpload)gvMenu.Rows[i].FindControl("fuImagen");
 
-                        //Creo los parametros que se le enviaran al procedimiento almacenando.
-                        SqlParameter pOpcion = new SqlParameter("@opcion", SqlDbType.SmallInt);
-                        pOpcion.Value = 1;
-                        SqlParameter pNombre = new SqlParameter("@nombre_menu", SqlDbType.VarChar);
-                        pNombre.Value = nombre_menu;
-                        SqlParameter pDescripcion = new SqlParameter("@descripcion_menu", SqlDbType.VarChar);
-                        pDescripcion.Value = descripcion_menu;
-                        SqlParameter pImagenMenu = new SqlParameter("@imagen_menu", SqlDbType.Image);
-                        pImagenMenu.Value = bImagenThumbnail;//imagen_original;
-                        SqlParameter pPrecio = new SqlParameter("@precio_menu", SqlDbType.Money);
-                        pPrecio.Value = precio_menu;
-                        SqlParameter pIdCategoria = new SqlParameter("@id_categoria", SqlDbType.SmallInt);
-                        pIdCategoria.Value = Codigo_categoria;
-                        SqlParameter pIdComedor = new SqlParameter("@id_comedor", SqlDbType.Int);
-                        pIdComedor.Value = Codigo_comedor;
-                        SqlParameter pMensaje = new SqlParameter("@mensaje", SqlDbType.VarChar, 50);
+                            nombre_menu = txtNombre.Text.Trim();
+                            descripcion_menu = txtDescripcion.Text.Trim();
+                            precio_menu = Convert.ToDouble(txtPrecio.Text.Trim());
+                            Codigo_comedor = Convert.ToInt32(ddlComedor.SelectedValue.ToString());
+                            Codigo_categoria = Convert.ToInt32(ddlCategoria.SelectedValue.ToString());
+                            dia = Convert.ToInt16(ddlDias.SelectedValue.ToString());
+                            //tratamiento de la imagen que se captura en el uploadfile
+                            tamanio_imagen = fuImagen.PostedFile.ContentLength;
+                            imagen_original = new byte[tamanio_imagen];
+                            fuImagen.PostedFile.InputStream.Read(imagen_original, 0, tamanio_imagen);
+                            Bitmap imagen_binaria = new Bitmap(fuImagen.PostedFile.InputStream);
+                            //Crear una imagen Thumbnail, esto para redimensionar la imagen
+                            System.Drawing.Image imgThumbnail;
+                            int tamanioThumbnail = 200;
+                            imgThumbnail = RedimensionarImagen(imagen_binaria, tamanioThumbnail);
+                            byte[] bImagenThumbnail = new byte[tamanioThumbnail];
+                            ImageConverter convertidor = new ImageConverter();
+                            bImagenThumbnail = (byte[])convertidor.ConvertTo(imgThumbnail, typeof(byte[]));
 
-                        //Agrego los parametros al sqlcommand
-                        SqlCommand cmd = new SqlCommand();
-                        cmd.Parameters.Add(pOpcion);
-                        cmd.Parameters.Add(pNombre);
-                        cmd.Parameters.Add(pDescripcion);
-                        cmd.Parameters.Add(pImagenMenu);
-                        cmd.Parameters.Add(pPrecio);
-                        cmd.Parameters.Add(pIdCategoria);
-                        cmd.Parameters.Add(pIdComedor);
-                        cmd.Parameters.Add(pMensaje).Direction = ParameterDirection.Output;
-                        SqlConnection conexion = new SqlConnection(conn.CadenaConexionBD());
-                        conexion.Open();
-                        cmd.Connection = conexion;
-                        cmd.CommandText = "dbo.sp_crear_menu_gastronomico";
-                        cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.ExecuteNonQuery();
-                        mensaje = cmd.Parameters["@mensaje"].Value.ToString();
-                        conexion.Close();
+                            //Creo los parametros que se le enviaran al procedimiento almacenando.
+                            SqlParameter pOpcion = new SqlParameter("@opcion", SqlDbType.SmallInt);
+                            pOpcion.Value = 1;
+                            SqlParameter pNombre = new SqlParameter("@nombre_menu", SqlDbType.VarChar);
+                            pNombre.Value = nombre_menu;
+                            SqlParameter pDescripcion = new SqlParameter("@descripcion_menu", SqlDbType.VarChar);
+                            pDescripcion.Value = descripcion_menu;
+                            SqlParameter pImagenMenu = new SqlParameter("@imagen_menu", SqlDbType.Image);
+                            pImagenMenu.Value = bImagenThumbnail;//imagen_original;
+                            SqlParameter pPrecio = new SqlParameter("@precio_menu", SqlDbType.Money);
+                            pPrecio.Value = precio_menu;
+                            SqlParameter pIdCategoria = new SqlParameter("@id_categoria", SqlDbType.SmallInt);
+                            pIdCategoria.Value = Codigo_categoria;
+                            SqlParameter pIdComedor = new SqlParameter("@id_comedor", SqlDbType.Int);
+                            SqlParameter pCalendario = new SqlParameter("@id_calendario", SqlDbType.SmallInt);
+                            pCalendario.Value = dia;
+                            pIdComedor.Value = Codigo_comedor;
+                            SqlParameter pMensaje = new SqlParameter("@mensaje", SqlDbType.VarChar, 50);
+
+                            //Agrego los parametros al sqlcommand
+                            SqlCommand cmd = new SqlCommand();
+                            cmd.Parameters.Add(pOpcion);
+                            cmd.Parameters.Add(pNombre);
+                            cmd.Parameters.Add(pDescripcion);
+                            cmd.Parameters.Add(pImagenMenu);
+                            cmd.Parameters.Add(pPrecio);
+                            cmd.Parameters.Add(pIdCategoria);
+                            cmd.Parameters.Add(pIdComedor);
+                            cmd.Parameters.Add(pCalendario);
+                            cmd.Parameters.Add(pMensaje).Direction = ParameterDirection.Output;
+                            SqlConnection conexion = new SqlConnection(conn.CadenaConexionBD());
+                            conexion.Open();
+                            cmd.Connection = conexion;
+                            cmd.CommandText = "dbo.sp_crear_menu_gastronomico";
+                            cmd.CommandType = CommandType.StoredProcedure;
+                            cmd.ExecuteNonQuery();
+                            mensaje = cmd.Parameters["@mensaje"].Value.ToString();
+                            conexion.Close();
+                        }
+                        ClientScript.RegisterStartupScript(this.GetType(), "Mensaje", "<script> swal({ " +
+                                                                                                  " title: 'Mensaje', " +
+                                                                                                  " text: 'Se ha agregado el menú con éxito', " +
+                                                                                                  " type: 'success', " +
+                                                                                                  " confirmButtonText: 'Ok', " +
+                                                                                                  " closeOnConfirm: false " +
+                                                                                                " }, " +
+                                                                                                " function(){ " +
+                                                                                                "   window.location.href = 'WFAgregarMenu.aspx';" +       //con esto me redirecciono a la pagina de login
+                                                                                                " }); </script>");
                     }
+                }
+                else
+                {
+                    ClientScript.RegisterStartupScript(this.GetType(), "mensaje", "<script> swal('Advertencia', 'Ingreso un valor no valido en el precio del producto, revise que el valor del producto sea valido y mayor a 0.', 'warning') </script>");
                 }
             }
             catch(Exception ex)
@@ -332,6 +327,7 @@ namespace ComidasPop
         protected void ddlComedor_SelectedIndexChanged(object sender, EventArgs e)
         {
             Codigo_comedor = Convert.ToInt32(ddlComedor.SelectedValue.ToString());
+            btnGuardar.Visible = false;
         }
     }
 }

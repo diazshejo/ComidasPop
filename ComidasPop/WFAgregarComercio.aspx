@@ -104,8 +104,6 @@
             z-index: 99999;
         }
     </style>
-
-
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -114,6 +112,7 @@
     <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
     <script src="https://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
     <%--poner aqui la llave de google maps--%>
+    
 
     <div id="divAgregarComercio">
         <div id="divTitulo">
@@ -132,7 +131,8 @@
                         <tr>
                             <td>Telefono:</td>
                             <td>
-                                <asp:TextBox ID="txtTelefono" runat="server" Width="100%" Height="30px"></asp:TextBox></td>
+                                <asp:TextBox ID="txtTelefono" runat="server" Width="100%" Height="30px"></asp:TextBox>
+                            </td>
                         </tr>
                         <tr>
                             <td>Pais:</td>
@@ -162,6 +162,32 @@
                                     <span class="glyphicon glyphicon-map-marker"></span><span id="ubicacion">Seleccione la ubicacion</span>
                                 </button>
                                 <asp:CheckBox ID="chkSinUbicacion" runat="server" Text="Sin ubicación" Width="200px" AutoPostBack="True" OnCheckedChanged="chkSinUbicacion_CheckedChanged" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Direccion:</td>
+                            <td>
+                                <asp:TextBox ID="txtDireccion" runat="server" Width="100%" Height="30px" required></asp:TextBox>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Zona:</td>
+                            <td>
+                                <asp:DropDownList ID="ddlZonas" runat="server">
+                                    <asp:ListItem Selected="True"></asp:ListItem>
+                                    <asp:ListItem Value="1">ZONA 1</asp:ListItem>
+                                    <asp:ListItem Value="2">ZONA 2</asp:ListItem>
+                                    <asp:ListItem Value="3">ZONA 3</asp:ListItem>
+                                    <asp:ListItem Value="4">ZONA 4</asp:ListItem>
+                                    <asp:ListItem Value="5">ZONA 5</asp:ListItem>
+                                    <asp:ListItem Value="6">ZONA 6</asp:ListItem>
+                                    <asp:ListItem Value="7">ZONA 7</asp:ListItem>
+                                    <asp:ListItem Value="8">ZONA 8</asp:ListItem>
+                                    <asp:ListItem Value="9">ZONA 9</asp:ListItem>
+                                    <asp:ListItem Value="10">ZONA 10</asp:ListItem>
+                                    <asp:ListItem Value="11">ZONA 11</asp:ListItem>
+                                    <asp:ListItem Value="12">ZONA 12</asp:ListItem>
+                                </asp:DropDownList>
                             </td>
                         </tr>
                         <tr>

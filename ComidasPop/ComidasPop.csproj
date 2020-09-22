@@ -138,6 +138,7 @@
     <Content Include="css\sweetalert.css" />
     <Content Include="Global.asax" />
     <Content Include="Imagenes\editar.png" />
+    <Content Include="Imagenes\eliminar.png" />
     <Content Include="Imagenes\logo.jpeg" />
     <Content Include="Imagenes\logo.png" />
     <Content Include="Imagenes\placeholder.png" />
