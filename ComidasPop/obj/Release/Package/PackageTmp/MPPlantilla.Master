@@ -1,0 +1,175 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="MPPlantilla.master.cs" Inherits="ComidasPop.MPPlantilla" %>
+
+<%@ Register Assembly="DevExpress.Web.v19.2, Version=19.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" Namespace="DevExpress.Web" TagPrefix="dx" %>
+
+<!DOCTYPE html>
+
+<html>
+<head runat="server">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+    <title>Starving</title>
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+    <style>
+        body {
+            position: absolute;
+            margin: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        form {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        #divEncabezado {
+            position: relative;
+            float: left;
+            width: 100%;
+            height: 5%;
+            background-color: #0B243B;
+        }
+
+        #divUser {
+            position: relative;
+            float: right;
+            width: 15%;
+        }
+
+        #divCentral {
+            position: relative;
+            float: left;
+            width: 100%;
+            height: 90.6%;
+        }
+
+        #divMenu {
+            position: relative;
+            float: left;
+            width: 100%;
+            height: 98%;
+        }
+
+        #divContenido {
+            position: relative;
+            float: right;
+            /*            width: 87%;*/
+            width: 100%;
+            height: 90%;
+        }
+
+        #divPie {
+            position: relative;
+            float: left;
+            width: 100%;
+            height: 5%;
+            background-color: #0B243B;
+        }
+    </style>
+
+    <link href="css/bootstrap-combined.min.css" rel="stylesheet" />
+    <%--<script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>--%>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('label.tree-toggler').click(function () {
+                $(this).parent().children('ul.tree').toggle(300);
+            });
+        });
+    </script>
+
+    <%--<link href="css/style.css" rel="stylesheet" />--%>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="css/sweetalert.css" rel="stylesheet" />
+    <script src="js/sweetalert.min.js" type="text/javascript"></script>
+    <link rel="SHORTCUT ICON" href="Imagenes/logo.png" />
+</head>
+<body>
+
+    <form id="form1" runat="server">
+        <div id="divEncabezado">
+            <div id="divUser">
+                <asp:Label ID="Label3" runat="server" Text="Bienvenido " ForeColor="White"></asp:Label>
+                <br />
+                <asp:Label ID="lblUsuario" runat="server" Text="" ForeColor="White"></asp:Label>
+            </div>
+        </div>
+        <div id="divCentral">
+            <dx:ASPxSplitter ID="splitter" runat="server" Width="99.9%" Height="100%" Orientation="Horizontal" Theme="Material" ShowCollapseBackwardButton="True" AllowResize="False" PaneMinSize="300px">
+                <Panes>
+                    <dx:SplitterPane ShowCollapseBackwardButton="True" ScrollBars="Auto" AutoHeight="True" AllowResize="True" AutoWidth="True" Separator-Visible="True" PaneStyle-HorizontalAlign="Left" Collapsed="False" MinSize="200px" MaxSize="200px">
+                        <Separator Visible="True"></Separator>
+                        <PaneStyle HorizontalAlign="Left" Border-BorderStyle="Solid" Border-BorderColor="#CCCCCC" Border-BorderWidth="1px"></PaneStyle>
+                        <ContentCollection>
+                            <dx:SplitterContentControl BorderStyle="None">
+                                <div class="container2">
+                                    <div class="rows">
+                                        <div class="wellsa" style="width: 100%; padding: 8px 0;">
+                                            <div style="overflow-y: auto; overflow-x: hidden; height: 10%;">
+                                                <ul class="nav nav-list">
+                                                    <li>
+                                                        <label class="tree-toggler nav-header"><i class="material-icons">storefront</i>   Establecimientos comerciales</label>
+                                                        <ul class="nav nav-list tree">
+                                                            <li><a href="/WFAgregarComercio.aspx"><i class="fa fa-check-circle"></i>Agregar comedores</a></li>
+                                                        </ul>
+                                                    </li>
+                                                    <li class="divider"></li>
+                                                    <li>
+                                                        <label class="tree-toggler nav-header"><i class="material-icons">restaurant_menu</i>  Menú gastronómico</label>
+                                                        <ul class="nav nav-list tree">
+                                                            <li><a href="/WFAgregarMenu.aspx"><i class="fa fa-check-circle"></i>Menús</a></li>
+                                                            <li><a href="/WFCatalogoMenu.aspx"><i class="fa fa-check-circle"></i>Catálogo de Menús</a></li>
+                                                        </ul>
+                                                    </li>
+                                                    <li class="divider"></li>
+                                                    <li>
+                                                        <label class="tree-toggler nav-header"><i class="material-icons">card_membership</i>    Membresías</label>
+                                                        <ul class="nav nav-list tree">
+                                                            <%--<li><a href="#"><i class="fa fa-check-circle"></i>  Mis suscripciones</a></li>--%>
+                                                            <li><a href="#"><i class="fa fa-check-circle"></i>Mi cuenta</a></li>
+                                                            <%--<li><a href="#"><i class="fa fa-check-circle"></i>  Metodos de pago</a></li>--%>
+                                                            <%--<li><a href="#"><i class="fa fa-check-circle"></i>  Historico de membersía</a></li>--%>
+                                                        </ul>
+                                                    </li>
+                                                    <li class="divider"></li>
+                                                    <li>
+                                                        <label class="tree-toggler nav-header"><i class="material-icons md-18">exit_to_app</i>    Salir</label>
+                                                        <ul class="nav nav-list tree">
+                                                            <li><a href="/WFLogin.aspx"><i class="fa fa-check-circle"></i>Cerrar sesión</a></li>
+                                                        </ul>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </dx:SplitterContentControl>
+                        </ContentCollection>
+                    </dx:SplitterPane>
+                    <dx:SplitterPane Size="85%" AllowResize="False" AutoHeight="True" MinSize="500px">
+                        <PaneStyle HorizontalAlign="Left" Border-BorderStyle="Solid" Border-BorderColor="#CCCCCC" Border-BorderWidth="1px"></PaneStyle>
+                        <ContentCollection>
+                            <dx:SplitterContentControl>
+                                <div id="divContenido">
+                                    <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+                                    </asp:ContentPlaceHolder>
+                                </div>
+                            </dx:SplitterContentControl>
+                        </ContentCollection>
+                    </dx:SplitterPane>
+                </Panes>
+                <Styles>
+                    <SeparatorButton VerticalAlign="Middle">
+                    </SeparatorButton>
+                </Styles>
+            </dx:ASPxSplitter>
+            <div id="divPie">
+            </div>
+        </div>
+    </form>
+</body>
+</html>

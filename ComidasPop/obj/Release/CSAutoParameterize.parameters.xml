@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<parameters>
+  <parameter name="comidasPopConexionString-Web.config Connection String" description="comidasPopConexionString Cadena de conexión que usa la aplicación en web.config para obtener acceso a la base de datos." defaultValue="Data Source=homelands.database.windows.net;Initial Catalog=homeland;Persist Security Info=True;User ID=miners;Password=Fedora14" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="C:\\Users\\sergiodiaz\\source\\repos\\ComidasPop\\ComidasPop\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='comidasPopConexionString']/@connectionString" />
+  </parameter>
+</parameters>
