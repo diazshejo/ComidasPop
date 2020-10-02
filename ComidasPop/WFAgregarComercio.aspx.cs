@@ -1,4 +1,6 @@
-﻿using DevExpress.ClipboardSource.SpreadsheetML;
+﻿#pragma warning disable CS0234 // El tipo o el nombre del espacio de nombres 'ClipboardSource' no existe en el espacio de nombres 'DevExpress' (¿falta alguna referencia de ensamblado?)
+using DevExpress.ClipboardSource.SpreadsheetML;
+#pragma warning restore CS0234 // El tipo o el nombre del espacio de nombres 'ClipboardSource' no existe en el espacio de nombres 'DevExpress' (¿falta alguna referencia de ensamblado?)
 using DevExpress.Utils.Serializing;
 using DevExpress.Web.Internal;
 using DevExpress.XtraPrinting;
@@ -19,7 +21,9 @@ namespace ComidasPop
     public partial class WFAgregarComercio : System.Web.UI.Page
     {
         private Conexion conn = new Conexion();
+#pragma warning disable CS0414 // El campo 'WFAgregarComercio.usuario' está asignado pero su valor nunca se usa
         private Usuario usuario = null;
+#pragma warning restore CS0414 // El campo 'WFAgregarComercio.usuario' está asignado pero su valor nunca se usa
         private Comedor comedor = null;
         private DataTable dt = null;
         private DataTable dtPaises = null;
@@ -122,7 +126,9 @@ namespace ComidasPop
                 gvDatosComercio.DataSource = dtComercios;
                 gvDatosComercio.DataBind();
             }
+#pragma warning disable CS0168 // La variable 'ex' se ha declarado pero nunca se usa
             catch(Exception ex)
+#pragma warning restore CS0168 // La variable 'ex' se ha declarado pero nunca se usa
             {
 
             }
@@ -271,7 +277,9 @@ namespace ComidasPop
                     ClientScript.RegisterStartupScript(this.GetType(), "Error", "<script>swal('Error', 'Ocurrió un error al tratar de crear el establecimiento comercial', 'error')</script>");
                 }
             }
+#pragma warning disable CS0168 // La variable 'ex' se ha declarado pero nunca se usa
             catch(Exception ex)
+#pragma warning restore CS0168 // La variable 'ex' se ha declarado pero nunca se usa
             {
                 ClientScript.RegisterStartupScript(this.GetType(), "mensaje", "<script>swal('Error', 'Ocurrió una excepción en la base de datos al tratar de crear el establecimiento comercial', 'error')</script>");
             }

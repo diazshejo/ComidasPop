@@ -11,7 +11,9 @@ namespace ComidasPop
     public partial class WFRegistro : System.Web.UI.Page 
     {
         private Conexion conn = new Conexion();
+#pragma warning disable CS0414 // El campo 'WFRegistro.dt' está asignado pero su valor nunca se usa
         private DataTable dt = null;
+#pragma warning restore CS0414 // El campo 'WFRegistro.dt' está asignado pero su valor nunca se usa
         private String nombres = "";
         private String apellidos = "";
         private String email = "";

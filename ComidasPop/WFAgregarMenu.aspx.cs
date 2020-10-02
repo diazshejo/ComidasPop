@@ -1,4 +1,6 @@
-﻿using DevExpress.ClipboardSource.SpreadsheetML;
+﻿#pragma warning disable CS0234 // El tipo o el nombre del espacio de nombres 'ClipboardSource' no existe en el espacio de nombres 'DevExpress' (¿falta alguna referencia de ensamblado?)
+using DevExpress.ClipboardSource.SpreadsheetML;
+#pragma warning restore CS0234 // El tipo o el nombre del espacio de nombres 'ClipboardSource' no existe en el espacio de nombres 'DevExpress' (¿falta alguna referencia de ensamblado?)
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -147,7 +149,9 @@ namespace ComidasPop
                     gvMenu.DataBind();
                 }
             }
+#pragma warning disable CS0168 // La variable 'ex' se ha declarado pero nunca se usa
             catch(Exception ex)
+#pragma warning restore CS0168 // La variable 'ex' se ha declarado pero nunca se usa
             {
 
             }
@@ -194,7 +198,9 @@ namespace ComidasPop
                     }
                 }
             }
+#pragma warning disable CS0168 // La variable 'ex' se ha declarado pero nunca se usa
             catch(Exception ex)
+#pragma warning restore CS0168 // La variable 'ex' se ha declarado pero nunca se usa
             {
 
             }

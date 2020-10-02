@@ -11,8 +11,12 @@ namespace ComidasPop
     public class Conexion
     {
         private SqlConnection conexionBD;
+#pragma warning disable CS0414 // El campo 'Conexion.mensaje' está asignado pero su valor nunca se usa
         private String mensaje = "";
+#pragma warning restore CS0414 // El campo 'Conexion.mensaje' está asignado pero su valor nunca se usa
+#pragma warning disable CS0414 // El campo 'Conexion.mensajeEx' está asignado pero su valor nunca se usa
         private String mensajeEx = "";
+#pragma warning restore CS0414 // El campo 'Conexion.mensajeEx' está asignado pero su valor nunca se usa
         private String ip_servidor_db = "";
         private String clave_server_db = "";
         private String usuario_server_db = "";
@@ -58,7 +62,9 @@ namespace ComidasPop
                 DTA.Fill(DT);
                 CMD.Connection.Close();
             }
+#pragma warning disable CS0168 // La variable 'ex' se ha declarado pero nunca se usa
             catch (SqlException ex)
+#pragma warning restore CS0168 // La variable 'ex' se ha declarado pero nunca se usa
             {
             }
             finally
