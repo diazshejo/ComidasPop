@@ -12,6 +12,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Image = System.Drawing.Image;
 
 namespace ComidasPop
 {
@@ -127,6 +128,26 @@ namespace ComidasPop
             }
         }
 
+        public System.Drawing.Image RedimensionarImagen(System.Drawing.Image ImagenOriginal, int alto)
+        {
+            var radio = (double)alto / ImagenOriginal.Height;
+            var nuevoAncho = (int)(ImagenOriginal.Width * radio);
+            var nuevoAlto = (int)(ImagenOriginal.Height * radio);
+            var NuevaImagenRedimensionada = new Bitmap(nuevoAncho, nuevoAlto);
+            var g = Graphics.FromImage(NuevaImagenRedimensionada);
+            g.DrawImage(ImagenOriginal, 0, 0, nuevoAncho, nuevoAlto);
+            return NuevaImagenRedimensionada;
+        }
+
+        public byte[] convertirImagenAArrayBytes(Image img)
+        {
+            using(MemoryStream mStream = new MemoryStream())
+            {
+                img.Save(mStream, img.RawFormat);
+                return mStream.ToArray();
+            }
+        }
+
         protected void btnGuardar_Click(object sender, EventArgs e)
         {
             try
@@ -138,16 +159,23 @@ namespace ComidasPop
                 byte[] imagen_original = new byte[tamanio];             //creo un array del tamanio de la imagen
                 FilePhoto.PostedFile.InputStream.Read(imagen_original, 0, tamanio);
                 Bitmap imagen_binaria = null;
-
                 if (tamanio > 0)
                 {
                     imagen_binaria = new Bitmap(FilePhoto.PostedFile.InputStream);
                 }
+                else
+                {
+                    //si no se selecciono una imagen para logo del comercio, entonces que cargue una imagen por default
+                    imagen_binaria = new Bitmap(Server.MapPath("~/Imagenes/ubicacioncomedorrojo.png"));
+                }
+                //Crear una imagen Thumbnail, esto para redimensionar la imagen
+                System.Drawing.Image imgThubnail;
+                int tamanioThumbnail = 200;
+                imgThubnail = RedimensionarImagen(imagen_binaria, tamanioThumbnail);
+                byte[] bImagenThumbnail = new byte[tamanioThumbnail];
+                ImageConverter convertidor = new ImageConverter();
+                bImagenThumbnail = (byte[])convertidor.ConvertTo(imgThubnail, typeof(byte[]));
 
-                //String imagenDataURL64 = "data:image/jpg,base64," + Convert.ToBase64String(imagen_original);
-                //imgPreview.ImageUrl = imagenDataURL64;
-
-                //usuario = (Usuario)Session["ses_usuario"];
                 Nombre_establecimiento = txtNombre.Text.Trim();
                 Telefono = Convert.ToInt32(txtTelefono.Text.Trim());
 
@@ -177,7 +205,7 @@ namespace ComidasPop
                 SqlParameter pTelefono = new SqlParameter("@telefono", SqlDbType.Int);
                 pTelefono.Value = Telefono;
                 SqlParameter pLogo = new SqlParameter("@logo", SqlDbType.Image);
-                pLogo.Value = imagen_original;
+                pLogo.Value = bImagenThumbnail; //imagen_original;      //aqui la imagen ya esta redimensionada
                 SqlParameter pLatitud = new SqlParameter("@latitud", SqlDbType.VarChar);
                 pLatitud.Value = Latitud;
                 SqlParameter pLongitud = new SqlParameter("@longitud", SqlDbType.VarChar);

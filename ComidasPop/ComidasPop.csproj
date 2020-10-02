@@ -46,6 +46,7 @@
     <Reference Include="DevExpress.Data.v19.2, Version=19.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
+    <Reference Include="DevExpress.DataAccess.v19.2.UI, Version=19.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Printing.v19.2.Core, Version=19.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.Office.v19.2.Core, Version=19.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.RichEdit.v19.2.Core, Version=19.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
@@ -139,9 +140,11 @@
     <Content Include="Global.asax" />
     <Content Include="Imagenes\editar.png" />
     <Content Include="Imagenes\eliminar.png" />
+    <Content Include="Imagenes\loading.gif" />
     <Content Include="Imagenes\logo.jpeg" />
     <Content Include="Imagenes\logo.png" />
     <Content Include="Imagenes\placeholder.png" />
+    <Content Include="Imagenes\ubicacioncomedorrojo.png" />
     <Content Include="js\locationpicker.jquery.js" />
     <Content Include="js\sb-admin-charts.js" />
     <Content Include="js\sb-admin-charts.min.js" />

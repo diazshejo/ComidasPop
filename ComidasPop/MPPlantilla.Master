@@ -56,8 +56,8 @@
         #divContenido {
             position: relative;
             float: right;
-/*            width: 87%;*/
-width:100%;
+            /*            width: 87%;*/
+            width: 100%;
             height: 90%;
         }
 
@@ -89,6 +89,7 @@ width:100%;
     <link rel="SHORTCUT ICON" href="Imagenes/logo.png" />
 </head>
 <body>
+
     <form id="form1" runat="server">
         <div id="divEncabezado">
             <div id="divUser">
@@ -113,15 +114,15 @@ width:100%;
                                                     <li>
                                                         <label class="tree-toggler nav-header"><i class="material-icons">storefront</i>   Establecimientos comerciales</label>
                                                         <ul class="nav nav-list tree">
-                                                            <li><a href="/WFAgregarComercio.aspx"><i class="fa fa-check-circle"></i>    Agregar comedores</a></li>
+                                                            <li><a href="/WFAgregarComercio.aspx"><i class="fa fa-check-circle"></i>Agregar comedores</a></li>
                                                         </ul>
                                                     </li>
                                                     <li class="divider"></li>
                                                     <li>
                                                         <label class="tree-toggler nav-header"><i class="material-icons">restaurant_menu</i>  Menú gastronómico</label>
                                                         <ul class="nav nav-list tree">
-                                                            <li><a href="/WFAgregarMenu.aspx"><i class="fa fa-check-circle"></i>  Menús</a></li>
-                                                            <li><a href="/WFCatalogoMenu.aspx"><i class="fa fa-check-circle"></i>  Catálogo de Menús</a></li>
+                                                            <li><a href="/WFAgregarMenu.aspx"><i class="fa fa-check-circle"></i>Menús</a></li>
+                                                            <li><a href="/WFCatalogoMenu.aspx"><i class="fa fa-check-circle"></i>Catálogo de Menús</a></li>
                                                         </ul>
                                                     </li>
                                                     <li class="divider"></li>
@@ -129,7 +130,7 @@ width:100%;
                                                         <label class="tree-toggler nav-header"><i class="material-icons">card_membership</i>    Membresías</label>
                                                         <ul class="nav nav-list tree">
                                                             <%--<li><a href="#"><i class="fa fa-check-circle"></i>  Mis suscripciones</a></li>--%>
-                                                            <li><a href="#"><i class="fa fa-check-circle"></i>  Mi cuenta</a></li>
+                                                            <li><a href="#"><i class="fa fa-check-circle"></i>Mi cuenta</a></li>
                                                             <%--<li><a href="#"><i class="fa fa-check-circle"></i>  Metodos de pago</a></li>--%>
                                                             <%--<li><a href="#"><i class="fa fa-check-circle"></i>  Historico de membersía</a></li>--%>
                                                         </ul>
@@ -138,7 +139,7 @@ width:100%;
                                                     <li>
                                                         <label class="tree-toggler nav-header"><i class="material-icons md-18">exit_to_app</i>    Salir</label>
                                                         <ul class="nav nav-list tree">
-                                                            <li><a href="/WFLogin.aspx"><i class="fa fa-check-circle"></i>  Cerrar sesión</a></li>
+                                                            <li><a href="/WFLogin.aspx"><i class="fa fa-check-circle"></i>Cerrar sesión</a></li>
                                                         </ul>
                                                     </li>
                                                 </ul>
