@@ -12,7 +12,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using Image = System.Drawing.Image;
+using Image = System.Drawing.Image; 
 
 namespace ComidasPop
 {

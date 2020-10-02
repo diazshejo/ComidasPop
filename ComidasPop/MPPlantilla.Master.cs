@@ -7,7 +7,7 @@ using System.Web.UI.WebControls;
 
 namespace ComidasPop
 {
-    public partial class MPPlantilla : System.Web.UI.MasterPage
+    public partial class MPPlantilla : System.Web.UI.MasterPage 
     {
         private Usuario usuario = null;
 

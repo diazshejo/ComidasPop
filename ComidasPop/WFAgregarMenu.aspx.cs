@@ -12,7 +12,7 @@ using System.Web.UI.WebControls;
 
 namespace ComidasPop
 {
-    public partial class WFAgregarMenu : System.Web.UI.Page
+    public partial class WFAgregarMenu : System.Web.UI.Page 
     {
         private Conexion conn = new Conexion();
         private DataTable dtAuxiliar = new DataTable();
