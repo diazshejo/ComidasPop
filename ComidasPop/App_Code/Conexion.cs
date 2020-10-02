@@ -18,6 +18,7 @@ namespace ComidasPop
         private String mensajeEx = "";
 #pragma warning restore CS0414 // El campo 'Conexion.mensajeEx' está asignado pero su valor nunca se usa
         private String ip_servidor_db = "";
+        // sjs 
         private String clave_server_db = "";
         private String usuario_server_db = "";
         private String nombre_db = "";
